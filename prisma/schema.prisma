@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./local.db"
+}
+
+model User {
+  id               Int                @id @default(autoincrement())
+  email            String             @unique
+  username         String             @unique
+  password         String
+  resetToken       String?
+  resetExpiry      String?
+  picks            Pick[]
+  LeaderboardEntry LeaderboardEntry[]
+  TieBreaker       TieBreaker[]
+}
+
+model Team {
+  id        Int    @id @default(autoincrement())
+  city      String
+  fullName  String
+  nickName  String
+  league    String
+  abr       String
+  homeGames Game[] @relation("HomeTeam")
+  awayGames Game[] @relation("AwayTeam")
+  Pick      Pick[]
+}
+
+model Game {
+  id        Int      @id @default(autoincrement())
+  home      Team     @relation("HomeTeam", fields: [homeId], references: [id])
+  homeId    Int
+  away      Team     @relation("AwayTeam", fields: [awayId], references: [id])
+  awayId    Int
+  homeScore Int?
+  awayScore Int?
+  start     DateTime
+  winnerId  Int?
+  league    String
+  week      String
+  season    String
+  picks     Pick[]
+}
+
+model Pick {
+  id      Int      @id @default(autoincrement())
+  game    Game?    @relation(fields: [gameId], references: [id])
+  gameId  Int?
+  team    Team     @relation(fields: [teamId], references: [id])
+  teamId  Int
+  user    User     @relation(fields: [userId], references: [id])
+  userId  Int
+  correct Boolean?
+  closed  Boolean?
+}
+
+model LeaderboardEntry {
+  id         Int    @id @default(autoincrement())
+  user       User   @relation(fields: [userId], references: [id])
+  season     String
+  userId     Int
+  wildcard   Int
+  division   Int
+  conference Int
+  superbowl  Int
+}
+
+model TieBreaker {
+  id     Int    @id @default(autoincrement())
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int
+  value  Int
+  season String
+}

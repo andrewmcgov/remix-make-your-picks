@@ -6,11 +6,11 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch
+  useCatch,
 } from "remix";
-import type { LinksFunction } from "remix";
+import type {LinksFunction} from "remix";
 
-import { Layout } from './components/Layout';
+import {Layout} from "./components/Layout";
 
 import globalStylesUrl from "~/styles/global.css";
 import resetStylesUrl from "~/styles/reset.css";
@@ -18,11 +18,11 @@ import resetStylesUrl from "~/styles/reset.css";
 // https://remix.run/api/app#links
 export let links: LinksFunction = () => {
   return [
-    { rel: "stylesheet", href: globalStylesUrl },
+    {rel: "stylesheet", href: globalStylesUrl},
     {
       rel: "stylesheet",
       href: resetStylesUrl,
-    }
+    },
   ];
 };
 
@@ -39,7 +39,7 @@ export default function App() {
 }
 
 // https://remix.run/docs/en/v1/api/conventions#errorboundary
-export function ErrorBoundary({ error }: { error: Error }) {
+export function ErrorBoundary({error}: {error: Error}) {
   console.error(error);
   return (
     <Document title="Error!">
@@ -96,7 +96,7 @@ export function CatchBoundary() {
 
 function Document({
   children,
-  title
+  title,
 }: {
   children: React.ReactNode;
   title?: string;
@@ -108,6 +108,16 @@ function Document({
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         {title ? <title>{title}</title> : null}
         <Meta />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin={"true"}
+        />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bakbak+One&family=Open+Sans:wght@300&display=swap"
+          rel="stylesheet"
+        />
         <Links />
       </head>
       <body>
