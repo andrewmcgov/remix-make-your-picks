@@ -1,9 +1,23 @@
-export function Layout({children}: {children: React.ReactNode}) {
+import {Link} from 'remix';
+import {SafeUser} from '~/utilities/types';
+
+export interface LayoutProps {
+  children: React.ReactNode;
+  user?: SafeUser;
+}
+
+export function Layout({children, user}: LayoutProps) {
+  const accountUrl = user ? '/account' : '/login';
+  const accountText = user ? 'Account' : 'Log in';
   return (
     <div className="Layout">
       <div>
         <header>
           <h1>MAKE YOUR PICKS</h1>
+          <nav>
+            <Link to="/">Home</Link>
+            <Link to={accountUrl}>{accountText}</Link>
+          </nav>
         </header>
         <main>{children}</main>
       </div>

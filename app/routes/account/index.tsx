@@ -28,7 +28,7 @@ export default function Account() {
   const transition = useTransition();
 
   return (
-    <Layout>
+    <Layout user={user}>
       <h1>Account</h1>
       <h2>Hello, {user.username}</h2>
       <Form method="post" action="/logout">

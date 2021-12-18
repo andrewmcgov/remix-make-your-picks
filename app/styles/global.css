@@ -67,6 +67,18 @@ button:disabled {
   justify-content: space-between;
 }
 
+.Layout header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.Layout a {
+  font-family: var(--font-heading);
+  margin-left: 1rem;
+  color: var(--color-foreground);
+}
+
 /*
  * Footer
  */
