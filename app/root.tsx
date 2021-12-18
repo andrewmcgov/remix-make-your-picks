@@ -18,11 +18,11 @@ import resetStylesUrl from '~/styles/reset.css';
 // https://remix.run/api/app#links
 export let links: LinksFunction = () => {
   return [
-    {rel: 'stylesheet', href: globalStylesUrl},
     {
       rel: 'stylesheet',
       href: resetStylesUrl,
     },
+    {rel: 'stylesheet', href: globalStylesUrl},
   ];
 };
 
@@ -103,6 +103,7 @@ function Document({
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
+        <meta name="theme-color" content="#161616" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         {title ? <title>{title}</title> : null}
         <Meta />

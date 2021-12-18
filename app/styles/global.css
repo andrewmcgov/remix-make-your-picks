@@ -1,10 +1,8 @@
-/*
- * You can just delete everything here or keep whatever you like, it's just a
- * quick baseline!
- */
 :root {
-  --color-foreground: hsl(0, 0%, 7%);
-  --color-background: hsl(0, 0%, 100%);
+  --color-foreground: hsl(0, 0%, 97%);
+  --color-background: hsl(0, 0%, 9%);
+  --color-accent-primary: hsl(226, 100%, 42%);
+  --color-accent-secondary: hsl(0, 97%, 42%);
   --color-links: hsl(213, 100%, 52%);
   --color-links-hover: hsl(213, 100%, 43%);
   --color-border: hsl(0, 0%, 82%);
@@ -17,13 +15,25 @@ body {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-body);
+  /* background: rgb(1, 0, 8);
+  background: linear-gradient(
+    33deg,
+    rgb(17, 17, 17) 0%,
+    rgba(1, 1, 33, 1) 44%,
+    rgb(22, 22, 22) 100%
+  ); */
 }
 
 h1,
+.h1,
 h2,
+.h2,
 h3,
+.h3,
 h4,
-h5 {
+.h4,
+h5,
+.h5 {
   font-family: var(--font-heading);
 }
 
@@ -37,16 +47,45 @@ h2,
   font-size: 2.5rem;
 }
 
+@media screen and (max-width: 500px) {
+  h1,
+  .h1 {
+    font-size: 2.2rem;
+  }
+
+  h2,
+  .h2 {
+    font-size: 2rem;
+  }
+}
+
+a {
+  color: var(--color-foreground);
+}
+
+.text-center {
+  text-align: center;
+}
+
 button {
-  background: var(--color-background);
-  border: 2px solid var(--color-foreground);
+  background: var(--color-accent-primary);
+  border: none;
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   color: var(--color-foreground);
+  box-shadow: var(--color-accent-secondary) 3px 3px;
 }
 
 button:disabled {
   opacity: 0.7;
+}
+
+.button-group {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
 /*
@@ -65,15 +104,29 @@ button:disabled {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 0 1rem;
 }
 
 .Layout header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 2rem;
 }
 
-.Layout a {
+@media screen and (max-width: 500px) {
+  .Layout header {
+    flex-direction: column;
+  }
+}
+
+.Layout .logo {
+  text-decoration: none;
+  text-shadow: var(--color-accent-secondary) 3px 3px,
+    var(--color-accent-primary) 6px 6px;
+}
+
+.Layout nav a {
   font-family: var(--font-heading);
   margin-left: 1rem;
   color: var(--color-foreground);
@@ -89,7 +142,18 @@ button:disabled {
 }
 
 /*
- * TextField
+ * Card
+ */
+
+.card {
+  background: rgba(115, 115, 115, 0.28);
+  padding: 1rem;
+  margin: 2rem 0;
+  border-radius: 15px;
+}
+
+/*
+ * Footer
  */
 
 .TextField {
@@ -99,6 +163,12 @@ button:disabled {
 
 .TextField input {
   display: block;
+  width: 100%;
+  color: var(--color-foreground);
+  background: hsla(0, 0%, 65.1%, 0.69);
+  border-radius: 5px;
+  border: none;
+  padding: 0.5rem 1rem;
 }
 
 .TextField--error {
@@ -115,6 +185,11 @@ button:disabled {
 
 .signup-link {
   margin-top: 1rem;
+}
+
+.account-form {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 /*

@@ -22,45 +22,49 @@ export default function SignUp() {
 
   return (
     <Layout>
-      <h1>Sign up</h1>
-      <Form method="post">
-        <TextField
-          type="text"
-          name="username"
-          label="Username"
-          error={errors?.username}
-        />
-        <TextField
-          type="email"
-          name="email"
-          label="Email"
-          error={errors?.email}
-        />
-        <TextField
-          type="password"
-          name="password"
-          label="Password"
-          error={errors?.password}
-        />
-        <TextField
-          type="password"
-          name="repeatpassword"
-          label="Password"
-          error={errors?.repeatpassword}
-        />
-        <TextField
-          type="text"
-          name="key"
-          label="Signup key"
-          error={errors?.key}
-        />
-        <button type="submit" disabled={Boolean(transition.submission)}>
-          {transition.submission ? 'Signing up...' : 'Sign up'}
-        </button>
-      </Form>
-      <p className="login-link">
-        Already have an account? <Link to="/login">Log in!</Link>
-      </p>
+      <div className="card account-form">
+        <h1>Sign up</h1>
+        <Form method="post">
+          <TextField
+            type="text"
+            name="username"
+            label="Username"
+            error={errors?.username}
+          />
+          <TextField
+            type="email"
+            name="email"
+            label="Email"
+            error={errors?.email}
+          />
+          <TextField
+            type="password"
+            name="password"
+            label="Password"
+            error={errors?.password}
+          />
+          <TextField
+            type="password"
+            name="repeatpassword"
+            label="Password"
+            error={errors?.repeatpassword}
+          />
+          <TextField
+            type="text"
+            name="key"
+            label="Signup key"
+            error={errors?.key}
+          />
+          <div className="button-group">
+            <button type="submit" disabled={Boolean(transition.submission)}>
+              {transition.submission ? 'Signing up...' : 'Sign up'}
+            </button>
+          </div>
+        </Form>
+        <p className="login-link text-center">
+          Already have an account? <Link to="/login">Log in!</Link>
+        </p>
+      </div>
     </Layout>
   );
 }

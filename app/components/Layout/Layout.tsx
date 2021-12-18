@@ -13,7 +13,9 @@ export function Layout({children, user}: LayoutProps) {
     <div className="Layout">
       <div>
         <header>
-          <h1>MAKE YOUR PICKS</h1>
+          <Link to="/" className="h1 logo">
+            MAKE YOUR PICKS
+          </Link>
           <nav>
             <Link to="/">Home</Link>
             <Link to={accountUrl}>{accountText}</Link>

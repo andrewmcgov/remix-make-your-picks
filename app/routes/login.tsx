@@ -23,27 +23,31 @@ export default function LogIn() {
 
   return (
     <Layout>
-      <h1>Log in</h1>
-      <Form method="post">
-        <TextField
-          type="email"
-          name="email"
-          label="Email"
-          error={errors?.email}
-        />
-        <TextField
-          type="password"
-          name="password"
-          label="Password"
-          error={errors?.password}
-        />
-        <button type="submit" disabled={Boolean(transition.submission)}>
-          {transition.submission ? 'Logging in...' : 'Log in'}
-        </button>
-      </Form>
-      <p className="signup-link">
-        Don't have an account? <Link to="/signup">Sign up!</Link>
-      </p>
+      <div className="card account-form">
+        <h1>Log in</h1>
+        <Form method="post">
+          <TextField
+            type="email"
+            name="email"
+            label="Email"
+            error={errors?.email}
+          />
+          <TextField
+            type="password"
+            name="password"
+            label="Password"
+            error={errors?.password}
+          />
+          <div className="button-group">
+            <button type="submit" disabled={Boolean(transition.submission)}>
+              {transition.submission ? 'Logging in...' : 'Log in'}
+            </button>
+          </div>
+        </Form>
+        <p className="signup-link text-center">
+          Don't have an account? <Link to="/signup">Sign up!</Link>
+        </p>
+      </div>
     </Layout>
   );
 }
