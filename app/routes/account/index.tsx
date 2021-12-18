@@ -6,7 +6,8 @@ import {
   useTransition,
 } from 'remix';
 import {SafeUser} from '~/utilities/types';
-import {currentUser} from '../../utilities/user.server';
+import {currentUser} from '~/utilities/user.server';
+import {Layout} from '~/components/layout';
 
 interface LoaderResponse {
   user: SafeUser;
@@ -27,7 +28,7 @@ export default function Account() {
   const transition = useTransition();
 
   return (
-    <>
+    <Layout>
       <h1>Account</h1>
       <h2>Hello, {user.username}</h2>
       <Form method="post" action="/logout">
@@ -35,6 +36,6 @@ export default function Account() {
           {transition.submission ? 'Logging out' : 'Log out'}
         </button>
       </Form>
-    </>
+    </Layout>
   );
 }

@@ -7,20 +7,20 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
-} from "remix";
-import type {LinksFunction} from "remix";
+} from 'remix';
+import type {LinksFunction} from 'remix';
 
-import {Layout} from "./components/Layout";
+import {Layout} from './components/Layout';
 
-import globalStylesUrl from "~/styles/global.css";
-import resetStylesUrl from "~/styles/reset.css";
+import globalStylesUrl from '~/styles/global.css';
+import resetStylesUrl from '~/styles/reset.css';
 
 // https://remix.run/api/app#links
 export let links: LinksFunction = () => {
   return [
-    {rel: "stylesheet", href: globalStylesUrl},
+    {rel: 'stylesheet', href: globalStylesUrl},
     {
-      rel: "stylesheet",
+      rel: 'stylesheet',
       href: resetStylesUrl,
     },
   ];
@@ -31,9 +31,7 @@ export let links: LinksFunction = () => {
 export default function App() {
   return (
     <Document>
-      <Layout>
-        <Outlet />
-      </Layout>
+      <Outlet />
     </Document>
   );
 }
@@ -112,7 +110,7 @@ function Document({
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
-          crossOrigin={"true"}
+          crossOrigin={'true'}
         />
         <link
           href="https://fonts.googleapis.com/css2?family=Bakbak+One&family=Open+Sans:wght@300&display=swap"
@@ -124,7 +122,7 @@ function Document({
         {children}
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
+        {process.env.NODE_ENV === 'development' && <LiveReload />}
       </body>
     </html>
   );

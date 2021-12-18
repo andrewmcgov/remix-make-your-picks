@@ -1,6 +1,7 @@
 import {ActionFunction, useActionData, useTransition, Form, Link} from 'remix';
-import {signUp} from '../utilities/user.server';
-import {TextField} from '../components/TextField';
+import {signUp} from '~/utilities/user.server';
+import {TextField} from '~/components/TextField';
+import {Layout} from '~/components/Layout';
 
 interface Errors {
   [key: string]: string;
@@ -20,7 +21,7 @@ export default function SignUp() {
   const errors = actionData?.errors;
 
   return (
-    <>
+    <Layout>
       <h1>Sign up</h1>
       <Form method="post">
         <TextField
@@ -60,6 +61,6 @@ export default function SignUp() {
       <p className="login-link">
         Already have an account? <Link to="/login">Log in!</Link>
       </p>
-    </>
+    </Layout>
   );
 }

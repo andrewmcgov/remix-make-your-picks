@@ -1,6 +1,4 @@
-import React from 'react';
-
-export function Layout({ children }: { children: React.ReactNode }) {
+export function Layout({children}: {children: React.ReactNode}) {
   return (
     <div className="Layout">
       <div>
@@ -9,9 +7,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </header>
         <main>{children}</main>
       </div>
-      <footer className="Footer">
-        Made by Andrew McGoveran
-      </footer>
+      <footer className="Footer">Made by Andrew McGoveran</footer>
     </div>
   );
 }
