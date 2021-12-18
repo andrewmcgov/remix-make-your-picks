@@ -8,8 +8,9 @@
   --color-links: hsl(213, 100%, 52%);
   --color-links-hover: hsl(213, 100%, 43%);
   --color-border: hsl(0, 0%, 82%);
-  --font-body: "Open Sans", sans-serif;
-  --font-heading: "Bakbak One", sans-serif;
+  --color-error: hsl(0, 71%, 50%);
+  --font-body: 'Open Sans', sans-serif;
+  --font-heading: 'Bakbak One', sans-serif;
 }
 
 body {
@@ -36,11 +37,6 @@ h2,
   font-size: 2.5rem;
 }
 
-input {
-  display: block;
-  margin-bottom: 1.5rem;
-}
-
 button {
   background: var(--color-background);
   border: 2px solid var(--color-foreground);
@@ -48,6 +44,14 @@ button {
   border-radius: 5px;
   color: var(--color-foreground);
 }
+
+button:disabled {
+  opacity: 0.7;
+}
+
+/*
+ * COMPONENTS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
 
 /*
  * Layout
@@ -70,4 +74,41 @@ button {
 .Footer {
   text-align: center;
   padding: 1rem;
+}
+
+/*
+ * TextField
+ */
+
+.TextField {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.TextField input {
+  display: block;
+}
+
+.TextField--error {
+  color: var(--color-error);
+}
+
+/*
+ * PAGES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
+/*
+ * Log in
+ */
+
+.signup-link {
+  margin-top: 1rem;
+}
+
+/*
+ * Sign up
+ */
+
+.login-link {
+  margin-top: 1rem;
 }
