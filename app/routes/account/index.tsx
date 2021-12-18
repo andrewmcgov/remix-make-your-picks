@@ -1,15 +1,40 @@
-import {LoaderFunction, useLoaderData, redirect} from 'remix';
+import {
+  LoaderFunction,
+  useLoaderData,
+  redirect,
+  Form,
+  useTransition,
+} from 'remix';
+import {SafeUser} from '~/utilities/types';
+import {currentUser} from '../../utilities/user.server';
 
-import {db} from '../../utilities/db.server';
+interface LoaderResponse {
+  user: SafeUser;
+}
 
-export let loader: LoaderFunction = async () => {
-  // const user = await db.user.findFirst();
+export let loader: LoaderFunction = async ({request}) => {
+  const user = await currentUser(request);
 
-  if (true) {
+  if (!user) {
     return redirect('/login');
   }
+
+  return {user};
 };
 
 export default function Account() {
-  return <h2>Account page</h2>;
+  const {user} = useLoaderData<LoaderResponse>();
+  const transition = useTransition();
+
+  return (
+    <>
+      <h1>Account</h1>
+      <h2>Hello, {user.username}</h2>
+      <Form method="post" action="/logout">
+        <button type="submit" disabled={Boolean(transition.submission)}>
+          {transition.submission ? 'Logging out' : 'Log out'}
+        </button>
+      </Form>
+    </>
+  );
 }

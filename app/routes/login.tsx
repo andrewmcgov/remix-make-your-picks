@@ -1,69 +1,46 @@
-import {Form, ActionFunction, Link, redirect} from 'remix';
-import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
+import {Form, ActionFunction, useActionData, useTransition, Link} from 'remix';
 
-import {db} from '../utilities/db.server';
-import {userCookie} from '../cookies';
+import {TextField} from '../components/TextField';
+import {logIn} from '../utilities/user.server';
 
 interface Errors {
-  [key: string]: boolean;
+  [key: string]: string;
+}
+
+interface ActionResponse {
+  errors: Errors;
 }
 
 export const action: ActionFunction = async ({request}) => {
-  const formData = await request.formData();
-  let email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-
-  let errors: Errors = {};
-  if (!email) errors.email = true;
-  if (!password) errors.password = true;
-
-  if (Object.keys(errors).length) {
-    return errors;
-  }
-
-  email = email.trim();
-
-  const user = await db.user.findUnique({where: {email}});
-
-  if (!user) {
-    errors.email = true;
-    return errors;
-  }
-
-  const validPassword = await bcrypt.compare(password, user.password);
-
-  if (!validPassword) {
-    errors.password = true;
-    return errors;
-  }
-
-  const token = jwt.sign({id: user.id}, process.env.APP_SECRET as string);
-  const cookie = {id: token};
-
-  return redirect('/', {
-    headers: {
-      'Set-Cookie': await userCookie.serialize(cookie),
-    },
-  });
+  return await logIn(request);
 };
 
 export default function LogIn() {
+  const actionData = useActionData<ActionResponse>();
+  const transition = useTransition();
+  const errors = actionData?.errors;
+
   return (
     <>
       <h1>Log in</h1>
       <Form method="post">
-        <label>
-          Email
-          <input type="email" name="email" />
-        </label>
-        <label>
-          Password
-          <input type="password" name="password" />
-        </label>
-        <button type="submit">Log in</button>
+        <TextField
+          type="email"
+          name="email"
+          label="Email"
+          error={errors?.email}
+        />
+        <TextField
+          type="password"
+          name="password"
+          label="Password"
+          error={errors?.password}
+        />
+        <button type="submit" disabled={Boolean(transition.submission)}>
+          {transition.submission ? 'Logging in...' : 'Log in'}
+        </button>
       </Form>
-      <p>
+      <p className="signup-link">
         Don't have an account? <Link to="/signup">Sign up!</Link>
       </p>
     </>
