@@ -5,3 +5,12 @@ node_modules
 /.netlify
 .env
 /prisma/local.db
+
+node_modules
+
+.cache
+.vercel
+.output
+
+public/build
+api/_build
