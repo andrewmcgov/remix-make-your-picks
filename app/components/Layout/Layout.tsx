@@ -3,7 +3,7 @@ import {SafeUser} from '~/utilities/types';
 
 export interface LayoutProps {
   children: React.ReactNode;
-  user?: SafeUser;
+  user?: SafeUser | null;
 }
 
 export function Layout({children, user}: LayoutProps) {
