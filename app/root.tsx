@@ -14,6 +14,7 @@ import {Layout} from './components/Layout';
 
 import globalStylesUrl from '~/styles/global.css';
 import resetStylesUrl from '~/styles/reset.css';
+import teamsStylesUrl from '~/styles/teams.css';
 
 // https://remix.run/api/app#links
 export let links: LinksFunction = () => {
@@ -23,6 +24,7 @@ export let links: LinksFunction = () => {
       href: resetStylesUrl,
     },
     {rel: 'stylesheet', href: globalStylesUrl},
+    {rel: 'stylesheet', href: teamsStylesUrl},
   ];
 };
 
