@@ -183,7 +183,7 @@ button.secondary {
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 15px;
-  overflow: hidden;
+  overflow: scroll;
   box-shadow: 3px 3px var(--color-foreground);
 }
 
@@ -285,6 +285,39 @@ button.secondary {
     flex-direction: column;
     margin-bottom: 1rem;
   }
+}
+
+/*
+ * Tables
+ */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow: scroll;
+}
+
+td,
+th {
+  padding: 0.6rem;
+  border: 1px solid hsl(0, 0%, 81%);
+}
+
+tr:hover {
+  background: rgba(115, 115, 115, 0.35);
+}
+
+th {
+  text-align: left;
+  background-color: rgba(115, 115, 115, 0.28);
+}
+
+tr:nth-child(odd) td {
+  background-color: rgba(115, 115, 115, 0.28);
+}
+
+table a {
+  text-decoration: none;
 }
 
 /*
