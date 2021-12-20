@@ -6,8 +6,9 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix dev",
-    "postinstall": "remix setup node",
-    "prisma:migrate": "prisma migrate dev"
+    "postinstall": "remix setup node && prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:generate": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^3.6.0",
