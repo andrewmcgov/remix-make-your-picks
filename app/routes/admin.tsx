@@ -8,7 +8,7 @@ import {
 import {SafeUser, AdminGame} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 import {db} from '~/utilities/db.server';
-import {Layout} from '~/components/layout';
+import {Layout} from '~/components/Layout';
 import {defaultWeek, defaultSeason} from '../utilities/static-data';
 import {GameFilter} from '~/components/GameFilter';
 import {getNewMatchesForLinks} from '@remix-run/react/links';

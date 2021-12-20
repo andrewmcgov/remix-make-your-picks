@@ -8,7 +8,7 @@ import {
 } from 'remix';
 
 import {TextField} from '~/components/TextField';
-import {Layout} from '~/components/layout';
+import {Layout} from '~/components/Layout';
 import {logIn} from '../utilities/user.server';
 
 interface Errors {

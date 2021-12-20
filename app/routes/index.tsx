@@ -1,6 +1,6 @@
 import {MetaFunction, LoaderFunction, useLoaderData} from 'remix';
 import {currentUser} from '~/utilities/user.server';
-import {Layout} from '~/components/layout';
+import {Layout} from '~/components/Layout';
 import {SafeUser, IndexGame} from '~/utilities/types';
 import {db} from '~/utilities/db.server';
 import {GameCard} from '~/components/GameCard';

@@ -2,7 +2,7 @@ import {LoaderFunction, useLoaderData, redirect, MetaFunction} from 'remix';
 import {SafeUser, AdminGame} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 import {db} from '~/utilities/db.server';
-import {Layout} from '~/components/layout';
+import {Layout} from '~/components/Layout';
 
 interface LoaderResponse {
   user: SafeUser;

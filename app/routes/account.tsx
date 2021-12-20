@@ -8,7 +8,7 @@ import {
 } from 'remix';
 import {SafeUser} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
-import {Layout} from '~/components/layout';
+import {Layout} from '~/components/Layout';
 
 interface LoaderResponse {
   user: SafeUser;
