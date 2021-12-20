@@ -19,6 +19,7 @@ export function Layout({children, user}: LayoutProps) {
           <nav>
             <Link to="/">Home</Link>
             <Link to={accountUrl}>{accountText}</Link>
+            <Link to="/admin">Admin</Link>
           </nav>
         </header>
         <main>{children}</main>

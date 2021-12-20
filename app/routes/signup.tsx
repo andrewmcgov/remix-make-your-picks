@@ -1,4 +1,11 @@
-import {ActionFunction, useActionData, useTransition, Form, Link} from 'remix';
+import {
+  ActionFunction,
+  useActionData,
+  useTransition,
+  Form,
+  Link,
+  MetaFunction,
+} from 'remix';
 import {signUp} from '~/utilities/user.server';
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';
@@ -10,6 +17,13 @@ interface Errors {
 interface ActionResponse {
   errors: Errors;
 }
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Sign up | Make your picks',
+    description: 'NFL playoff picks',
+  };
+};
 
 export const action: ActionFunction = async ({request}) => {
   return await signUp(request);

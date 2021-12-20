@@ -5,6 +5,7 @@ import {SafeUser, IndexGame} from '~/utilities/types';
 import {db} from '~/utilities/db.server';
 import {GameCard} from '~/components/GameCard';
 import {GameFilter} from '~/components/GameFilter';
+import {defaultWeek, defaultSeason} from '../utilities/static-data';
 
 // https://remix.run/api/conventions#meta
 export const meta: MetaFunction = () => {
@@ -22,8 +23,8 @@ interface IndexLoaderResponse {
 export let loader: LoaderFunction = async ({request}) => {
   const user = await currentUser(request);
   let url = new URL(request.url);
-  const week = url.searchParams.get('week') || '16';
-  const season = url.searchParams.get('season') || '2020';
+  const week = url.searchParams.get('week') || defaultWeek;
+  const season = url.searchParams.get('season') || defaultSeason;
 
   let games = await db.game.findMany({
     where: {

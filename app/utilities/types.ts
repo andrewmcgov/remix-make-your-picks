@@ -12,3 +12,9 @@ export type IndexGame = Game & {
     };
   })[];
 };
+
+export type AdminGame = Game & {
+  home: Team;
+  away: Team;
+  picks: Pick<GamePick, 'id'>[];
+};
