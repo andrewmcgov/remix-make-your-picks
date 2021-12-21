@@ -1,7 +1,8 @@
+import {Option} from '~/utilities/types';
 export interface SelectProps {
   name: string;
   label: string;
-  options: {value: string; label: string}[];
+  options: Option[];
   initialValue: string;
   onChange?: (value: string) => void;
   error?: string;

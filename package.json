@@ -8,7 +8,8 @@
     "dev": "remix dev",
     "postinstall": "remix setup node && prisma generate",
     "prisma:migrate": "prisma migrate dev",
-    "prisma:generate": "prisma generate"
+    "prisma:generate": "prisma generate",
+    "db:seed": "node scripts/seed.js"
   },
   "dependencies": {
     "@prisma/client": "^3.6.0",

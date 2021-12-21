@@ -2,6 +2,7 @@ import React from 'react';
 import {Form, useSearchParams, useTransition} from 'remix';
 
 import {
+  defaultSeason,
   seasonOptions,
   weekOptions2020,
   weekOptions2021,
@@ -12,7 +13,7 @@ export function GameFilter() {
   const transition = useTransition();
   const [filterOpen, setFilterOpen] = React.useState(false);
   let [searchParams] = useSearchParams();
-  const initialSeason = searchParams.get('season') || '2020';
+  const initialSeason = searchParams.get('season') || defaultSeason;
   const initialWeek = searchParams.get('week') || '16';
   const [currentSeason, setCurrentSeason] = React.useState(initialSeason);
   const weekOptions =
@@ -22,11 +23,9 @@ export function GameFilter() {
   if (!filterOpen) {
     return (
       <div className="GameFilter--toggle">
-        <div className="button-group">
-          <button className="secondary" onClick={() => setFilterOpen(true)}>
-            Filter games
-          </button>
-        </div>
+        <button className="secondary" onClick={() => setFilterOpen(true)}>
+          Filter games
+        </button>
       </div>
     );
   }
