@@ -1,5 +1,5 @@
 export const defaultWeek = '16';
-export const defaultSeason = '2020';
+export const defaultSeason = '2021';
 
 export const seasonOptions = [
   {value: '2020', label: '2020'},

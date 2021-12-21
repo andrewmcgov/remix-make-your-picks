@@ -24,7 +24,7 @@ export function Layout({children, user}: LayoutProps) {
         </header>
         <main>{children}</main>
       </div>
-      <footer className="Footer">Made by Andrew McGoveran</footer>
+      <footer className="Footer">🧀🧀🧀</footer>
     </div>
   );
 }

@@ -5,32 +5,33 @@ import {
   MetaFunction,
   ActionFunction,
 } from 'remix';
-import {SafeUser, AdminGame, Option} from '~/utilities/types';
+import {SafeUser, Option} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
+import {isAdmin} from '~/utilities/user';
 import {db} from '~/utilities/db.server';
 import {Layout} from '~/components/Layout';
+
 import {GameForm} from '~/components/GameForm';
 import {getTeamOptions} from '~/utilities/teams.server';
-import {isAdmin} from '~/utilities/user';
 import {getGameData} from '~/utilities/games.server';
 
 interface LoaderResponse {
   user: SafeUser;
-  game: AdminGame;
   teamOptions: Option[];
 }
+
 interface Errors {
   [key: string]: string;
 }
 
 export const meta: MetaFunction = () => {
   return {
-    title: 'Admin | Make your picks',
+    title: 'New game | Make your picks',
     description: 'NFL playoff picks',
   };
 };
 
-export let loader: LoaderFunction = async ({request, params}) => {
+export const loader: LoaderFunction = async ({request}) => {
   const user = await currentUser(request);
 
   if (!user || isAdmin(user)) {
@@ -38,30 +39,16 @@ export let loader: LoaderFunction = async ({request, params}) => {
   }
 
   const teamOptions = await getTeamOptions();
-  const game = await db.game.findUnique({
-    where: {
-      id: Number(params.gameId),
-    },
-    include: {
-      home: true,
-      away: true,
-      picks: {select: {id: true}},
-    },
-  });
 
-  if (!game) {
-    throw new Response('Not Found', {status: 404});
-  }
-
-  return {user, game, teamOptions};
+  return {user, teamOptions};
 };
 
-export const action: ActionFunction = async ({request, params}) => {
+export const action: ActionFunction = async ({request}) => {
   let errors: Errors = {};
   const user = await currentUser(request);
 
   if (!user || isAdmin(user)) {
-    errors.message = 'Only admins can edit games.';
+    errors.message = 'Only admins can create games.';
     return {errors};
   }
 
@@ -74,14 +61,13 @@ export const action: ActionFunction = async ({request, params}) => {
 
   const start = new Date(`${date} ${time}`);
 
-  const game = await db.game.update({
-    where: {id: Number(params.gameId)},
+  const game = await db.game.create({
     data: {
       home: {connect: {id: Number(homeId)}},
       away: {connect: {id: Number(awayId)}},
       start,
       league: 'NFL',
-      week: week,
+      week,
       season: '2021',
     },
   });
@@ -94,15 +80,15 @@ export const action: ActionFunction = async ({request, params}) => {
   return redirect('/admin');
 };
 
-export default function AdminGame() {
-  const {user, game, teamOptions} = useLoaderData<LoaderResponse>();
+export default function CreateGame() {
+  const {user, teamOptions} = useLoaderData<LoaderResponse>();
 
   return (
     <Layout user={user}>
-      <h1>
-        {game.away.nickName} @ {game.home.nickName}
-      </h1>
-      <GameForm teamOptions={teamOptions} game={game} />
+      <div className="">
+        <h1>New game</h1>
+      </div>
+      <GameForm teamOptions={teamOptions} />
     </Layout>
   );
 }

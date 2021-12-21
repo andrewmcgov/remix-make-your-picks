@@ -1,6 +1,6 @@
 import {User, Game, Team, Pick as GamePick} from '@prisma/client';
 
-export type SafeUser = Pick<User, 'username' | 'email' | 'id'>;
+export type SafeUser = Pick<User, 'username' | 'email' | 'id' | 'isAdmin'>;
 
 export type IndexGame = Game & {
   home: Team;
@@ -18,3 +18,8 @@ export type AdminGame = Game & {
   away: Team;
   picks: Pick<GamePick, 'id'>[];
 };
+
+export interface Option {
+  value: string;
+  label: string;
+}

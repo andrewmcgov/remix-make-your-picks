@@ -7,11 +7,11 @@ import {
 } from 'remix';
 import {SafeUser, AdminGame} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
+import {isAdmin} from '~/utilities/user';
 import {db} from '~/utilities/db.server';
 import {Layout} from '~/components/Layout';
 import {defaultWeek, defaultSeason} from '../utilities/static-data';
 import {GameFilter} from '~/components/GameFilter';
-import {getNewMatchesForLinks} from '@remix-run/react/links';
 
 interface LoaderResponse {
   user: SafeUser;
@@ -28,9 +28,8 @@ export const meta: MetaFunction = () => {
 export let loader: LoaderFunction = async ({request}) => {
   const user = await currentUser(request);
 
-  // TODO: Restrict to only certain users
-  if (!user) {
-    return redirect('/login');
+  if (!user || isAdmin(user)) {
+    return redirect('/');
   }
 
   let url = new URL(request.url);
@@ -57,7 +56,10 @@ export default function Admin() {
 
   return (
     <Layout user={user}>
-      <h1>Admin</h1>
+      <div className="AdminHeading">
+        <h1>Admin</h1>
+        <Link to="/admin/games/new">New game</Link>
+      </div>
       <GameFilter />
       <div className="card">
         <table>

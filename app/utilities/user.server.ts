@@ -131,7 +131,7 @@ export async function currentUser(request: Request): Promise<SafeUser | null> {
     )?.id;
     return await db.user.findUnique({
       where: {id: Number(id)},
-      select: {username: true, email: true, id: true},
+      select: {username: true, email: true, id: true, isAdmin: true},
     });
   }
 
