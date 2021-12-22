@@ -48,11 +48,19 @@ export default function Index() {
   return (
     <Layout user={user}>
       <GameFilter />
-      <div className="game-list">
-        {games.map((game) => {
-          return <GameCard key={game.id} game={game} />;
-        })}
-      </div>
+      {games.length > 0 ? (
+        <div className="game-list">
+          {games.map((game) => {
+            return <GameCard key={game.id} game={game} />;
+          })}
+        </div>
+      ) : (
+        <div className="card">
+          <p className="empty-state">
+            No games found for this week. Try changing the filters above.
+          </p>
+        </div>
+      )}
     </Layout>
   );
 }

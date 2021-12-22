@@ -28,7 +28,7 @@ export const meta: MetaFunction = () => {
 export let loader: LoaderFunction = async ({request}) => {
   const user = await currentUser(request);
 
-  if (!user || isAdmin(user)) {
+  if (!user || !isAdmin(user)) {
     return redirect('/');
   }
 
@@ -58,40 +58,50 @@ export default function Admin() {
     <Layout user={user}>
       <div className="AdminHeading">
         <h1>Admin</h1>
-        <Link to="/admin/games/new">New game</Link>
+        <Link to="/admin/games/new" className="button">
+          New game
+        </Link>
       </div>
       <GameFilter />
-      <div className="card">
-        <table>
-          <tbody>
-            <tr>
-              <th>Away</th>
-              <th>Home</th>
-              <th>Time</th>
-              <th>Picks</th>
-            </tr>
-            {games.map((game) => {
-              const gamePath = `/admin/games/${game.id}`;
-              return (
-                <tr key={game.id}>
-                  <td>
-                    <Link to={gamePath}>{game.away.city}</Link>
-                  </td>
-                  <td>
-                    <Link to={gamePath}>{game.home.city}</Link>
-                  </td>
-                  <td>
-                    <Link to={gamePath}>{game.start}</Link>
-                  </td>
-                  <td>
-                    <Link to={gamePath}>{game.picks.length}</Link>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+      {games.length > 1 ? (
+        <div className="card">
+          <table>
+            <tbody>
+              <tr>
+                <th>Away</th>
+                <th>Home</th>
+                <th>Time</th>
+                <th>Picks</th>
+              </tr>
+              {games.map((game) => {
+                const gamePath = `/admin/games/${game.id}`;
+                return (
+                  <tr key={game.id}>
+                    <td>
+                      <Link to={gamePath}>{game.away.city}</Link>
+                    </td>
+                    <td>
+                      <Link to={gamePath}>{game.home.city}</Link>
+                    </td>
+                    <td>
+                      <Link to={gamePath}>{game.start}</Link>
+                    </td>
+                    <td>
+                      <Link to={gamePath}>{game.picks.length}</Link>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <div className="card">
+          <p className="empty-state">
+            No games found for this week. Try changing the filters above.
+          </p>
+        </div>
+      )}
     </Layout>
   );
 }

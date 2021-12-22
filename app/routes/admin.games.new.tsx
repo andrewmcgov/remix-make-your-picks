@@ -34,7 +34,7 @@ export const meta: MetaFunction = () => {
 export const loader: LoaderFunction = async ({request}) => {
   const user = await currentUser(request);
 
-  if (!user || isAdmin(user)) {
+  if (!user || !isAdmin(user)) {
     return redirect('/');
   }
 

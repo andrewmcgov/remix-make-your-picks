@@ -63,6 +63,10 @@ a {
   color: var(--color-foreground);
 }
 
+a.button {
+  text-decoration: none;
+}
+
 .text-center {
   text-align: center;
 }
@@ -81,7 +85,8 @@ a {
   margin-right: 1rem;
 }
 
-button {
+button,
+.button {
   background: var(--color-accent-primary);
   border: none;
   font-family: var(--font-heading);
@@ -127,6 +132,10 @@ button.secondary {
   }
 }
 
+.empty-state {
+  text-align: center;
+}
+
 /*
  * COMPONENTS ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
@@ -153,13 +162,9 @@ button.secondary {
   margin-bottom: 2rem;
 }
 
-@media screen and (max-width: 500px) {
-  .Layout header {
-    flex-direction: column;
-  }
-}
-
 .Layout .logo {
+  font-family: var(--font-heading);
+  font-size: 3rem;
   text-decoration: none;
   text-shadow: var(--color-accent-secondary) 3px 3px,
     var(--color-accent-primary) 6px 6px;
@@ -170,6 +175,45 @@ button.secondary {
   font-size: 1.8rem;
   margin-left: 1rem;
   color: var(--color-foreground);
+}
+
+@media screen and (min-width: 500px) {
+  .mobile-nav-toggle {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .Layout .logo {
+    font-size: 2.1rem;
+  }
+
+  .Layout nav {
+    position: absolute;
+    top: -350px;
+    left: 0;
+    width: 100%;
+    background: var(--color-background);
+    box-shadow: 3px 3px rgba(115, 115, 115, 0.28);
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
+
+  .Layout .mobile-nav-toggle span {
+    transform: rotate(45deg);
+  }
+
+  .Layout nav.mobile-nav--open {
+    top: 0;
+  }
+
+  .Layout nav a {
+    margin-left: 0;
+  }
 }
 
 /*
