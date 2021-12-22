@@ -38,6 +38,15 @@ export let loader: LoaderFunction = async ({request}) => {
     },
   });
 
+  games = user
+    ? games.map((game) => {
+        return {
+          ...game,
+          userPick: game.picks.find((pick) => pick.userId === user?.id),
+        };
+      })
+    : games;
+
   return {user, games};
 };
 
@@ -51,7 +60,7 @@ export default function Index() {
       {games.length > 0 ? (
         <div className="game-list">
           {games.map((game) => {
-            return <GameCard key={game.id} game={game} />;
+            return <GameCard key={game.id} game={game} user={user} />;
           })}
         </div>
       ) : (

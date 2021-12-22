@@ -4,7 +4,7 @@ export async function getGameData(request: Request) {
   const awayId = formData.get('awayId');
   const date = formData.get('date');
   const time = formData.get('time');
-  const week = formData.get('week') as string;
+  const week = formData.get('week') as string | null;
 
   return {homeId, awayId, date, time, week};
 }

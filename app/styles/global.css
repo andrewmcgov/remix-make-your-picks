@@ -347,6 +347,15 @@ button.secondary {
 }
 
 /*
+ * PickForm 
+ */
+
+.PickForm {
+  display: flex;
+  justify-content: space-around;
+}
+
+/*
  * Tables
  */
 
