@@ -60,7 +60,7 @@ export const action: ActionFunction = async ({request, params}) => {
   let errors: Errors = {};
   const user = await currentUser(request);
 
-  if (!user || isAdmin(user)) {
+  if (!user || !isAdmin(user)) {
     errors.message = 'Only admins can edit games.';
     return {errors};
   }

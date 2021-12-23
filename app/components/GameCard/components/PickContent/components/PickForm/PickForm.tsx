@@ -3,13 +3,18 @@ import {IndexGame} from '~/utilities/types';
 
 export interface PickFormProps {
   game: IndexGame;
+  onSubmit?: () => void;
 }
 
-export function PickForm({game}: PickFormProps) {
+export function PickForm({game, onSubmit}: PickFormProps) {
   const transition = useTransition();
   return (
     <div className="PickForm">
-      <Form method="post" action={`/pick?game=${game.id}&team=${game.away.id}`}>
+      <Form
+        method="post"
+        action={`/pick?game=${game.id}&team=${game.away.id}`}
+        onSubmit={onSubmit}
+      >
         <button
           type="submit"
           className="secondary"
@@ -18,7 +23,11 @@ export function PickForm({game}: PickFormProps) {
           {game.away.nickName}
         </button>
       </Form>
-      <Form method="post" action={`/pick?game=${game.id}&team=${game.home.id}`}>
+      <Form
+        method="post"
+        action={`/pick?game=${game.id}&team=${game.home.id}`}
+        onSubmit={onSubmit}
+      >
         <button
           type="submit"
           className="secondary"

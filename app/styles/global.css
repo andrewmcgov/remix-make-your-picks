@@ -95,6 +95,7 @@ button,
   border-radius: 5px;
   color: var(--color-foreground);
   box-shadow: var(--color-accent-secondary) 3px 3px;
+  cursor: pointer;
 }
 
 button:disabled {
@@ -104,6 +105,18 @@ button:disabled {
 button.secondary {
   background: var(--color-foreground);
   color: var(--color-background);
+}
+
+button.plain {
+  color: var(--color-foreground);
+  background: none;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  text-decoration: underline;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border-radius: none;
 }
 
 .button-group {
@@ -134,6 +147,13 @@ button.secondary {
 
 .empty-state {
   text-align: center;
+}
+
+.vertically-spaced {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 /*
@@ -351,8 +371,19 @@ button.secondary {
  */
 
 .PickForm {
+  width: 100%;
   display: flex;
   justify-content: space-around;
+}
+
+.icon-with-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-with-text svg {
+  margin: 0.5rem;
 }
 
 /*

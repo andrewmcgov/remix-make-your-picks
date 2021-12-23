@@ -2,7 +2,7 @@ import {User, Game, Team, Pick as GamePick} from '@prisma/client';
 
 export type SafeUser = Pick<User, 'username' | 'email' | 'id' | 'isAdmin'>;
 
-type PickWithTeamAndUsername = GamePick & {
+export type PickWithTeamAndUsername = GamePick & {
   team: Team;
   user: {
     username: string;
