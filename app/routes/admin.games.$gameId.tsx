@@ -4,6 +4,7 @@ import {
   redirect,
   MetaFunction,
   ActionFunction,
+  Link,
 } from 'remix';
 import {SafeUser, AdminGame, Option} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
@@ -25,7 +26,7 @@ interface Errors {
 
 export const meta: MetaFunction = () => {
   return {
-    title: 'Admin | Make your picks',
+    title: 'Admin game | Make your picks',
     description: 'NFL playoff picks',
   };
 };
@@ -99,9 +100,14 @@ export default function AdminGame() {
 
   return (
     <Layout user={user}>
-      <h1>
-        {game.away.nickName} @ {game.home.nickName}
-      </h1>
+      <div className="AdminHeading">
+        <h1>
+          {game.away.nickName} @ {game.home.nickName}
+        </h1>
+        <Link to={`/admin/games/${game.id}/close`} className="button">
+          Close game
+        </Link>
+      </div>
       <GameForm teamOptions={teamOptions} game={game} />
     </Layout>
   );

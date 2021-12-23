@@ -12,6 +12,7 @@ import {db} from '~/utilities/db.server';
 import {Layout} from '~/components/Layout';
 import {defaultWeek, defaultSeason} from '../utilities/static-data';
 import {GameFilter} from '~/components/GameFilter';
+import {format} from 'date-fns';
 
 interface LoaderResponse {
   user: SafeUser;
@@ -78,13 +79,21 @@ export default function Admin() {
                 return (
                   <tr key={game.id}>
                     <td>
-                      <Link to={gamePath}>{game.away.city}</Link>
+                      <Link to={gamePath}>
+                        {game.away.city}
+                        {game.awayScore !== null && ` - ${game.awayScore}`}
+                      </Link>
                     </td>
                     <td>
-                      <Link to={gamePath}>{game.home.city}</Link>
+                      <Link to={gamePath}>
+                        {game.home.city}
+                        {game.homeScore !== null && ` - ${game.homeScore}`}
+                      </Link>
                     </td>
                     <td>
-                      <Link to={gamePath}>{game.start}</Link>
+                      <Link to={gamePath}>
+                        {format(new Date(game.start), 'E LLL do, y h:mm bbb')}
+                      </Link>
                     </td>
                     <td>
                       <Link to={gamePath}>{game.picks.length}</Link>

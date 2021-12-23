@@ -25,7 +25,9 @@ interface ActionResponse {
 function getDateTimeValues(date: Date) {
   return {
     date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
-    time: `${date.getHours()}:${date.getMinutes()}`,
+    time: `${date.getHours()}:${
+      date.getMinutes() < 10 ? `0${date.getMinutes()}}` : date.getMinutes()
+    }`,
   };
 }
 

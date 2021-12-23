@@ -20,6 +20,7 @@ export type IndexGame = Game & {
 export type AdminGame = Game & {
   home: Team;
   away: Team;
+  start: string;
   picks: Pick<GamePick, 'id'>[];
 };
 
