@@ -1,1 +1,1 @@
-export * from './PreGameUnpicked';
+export * from './PregameUnpicked';
