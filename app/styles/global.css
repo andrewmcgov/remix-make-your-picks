@@ -322,6 +322,14 @@ button.plain {
   font-family: var(--font-heading);
   font-size: 3rem;
   padding: 1rem;
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.GameCard__team p {
+  line-height: 1;
 }
 
 .GameCard__pick {

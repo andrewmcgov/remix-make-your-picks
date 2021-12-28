@@ -1,4 +1,4 @@
-import {hasGameStarted} from '~/utilities/games';
+import {hasGameStarted, isGameClosed} from '~/utilities/games';
 import {IndexGame, SafeUser} from '~/utilities/types';
 import {NoUserPick} from './components/NoUserPick';
 import {PickContent} from './components/PickContent';
@@ -10,9 +10,16 @@ export interface GameCardProps {
 
 export function GameCard({game, user}: GameCardProps) {
   const gameStarted = hasGameStarted(game);
+  const gameClosed = isGameClosed(game);
 
+  console.log({gameStarted, gameClosed});
   const pickMarkup = user ? (
-    <PickContent game={game} user={user} gameStarted={gameStarted} />
+    <PickContent
+      game={game}
+      user={user}
+      gameStarted={gameStarted}
+      gameClosed={gameClosed}
+    />
   ) : (
     <NoUserPick gameStarted={gameStarted} />
   );
@@ -20,8 +27,14 @@ export function GameCard({game, user}: GameCardProps) {
   return (
     <div className="GameCard card card--full">
       <div className="GameCard__matchup">
-        <p className={`GameCard__team NFL-${game.away.abr}`}>{game.away.abr}</p>
-        <p className={`GameCard__team NFL-${game.home.abr}`}>{game.home.abr}</p>
+        <div className={`GameCard__team NFL-${game.away.abr}`}>
+          <p>{game.away.abr}</p>
+          {game.awayScore !== null && <p>{game.awayScore}</p>}
+        </div>
+        <div className={`GameCard__team NFL-${game.home.abr}`}>
+          <p>{game.home.abr}</p>
+          {game.homeScore !== null && <p>{game.homeScore}</p>}
+        </div>
       </div>
       <div className="GameCard__pick">{pickMarkup}</div>
     </div>
