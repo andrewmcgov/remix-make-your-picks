@@ -18,6 +18,14 @@ export async function sendPasswordResetEmail(
       ? 'http://localhost:3000'
       : 'https://makeyourpicks.ca';
 
+  if (!process.env.MAIL_USER) {
+    console.error('No mail user');
+  }
+
+  if (!process.env.MAIL_PASS) {
+    console.error('No mail pass');
+  }
+
   try {
     await transport.sendMail({
       from: process.env.MAIL_USER,
