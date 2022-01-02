@@ -1,4 +1,4 @@
-import {FiLock, FiTrendingDown, FiTrendingUp} from 'react-icons/fi';
+import {FiTrendingDown, FiTrendingUp} from 'react-icons/fi';
 import {IndexGame, PickWithTeamAndUsername} from '~/utilities/types';
 import {GameTime} from '../GameTime';
 

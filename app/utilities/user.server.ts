@@ -4,6 +4,8 @@ import {redirect} from 'remix';
 import {db} from '../utilities/db.server';
 import {userCookie} from '../cookies';
 import {SafeUser} from './types';
+import crypto from 'crypto';
+import {sendPasswordResetEmail} from './mail.server';
 
 function validateEmail(email: string) {
   const re =
@@ -144,4 +146,99 @@ export async function logOut(request: Request) {
       'Set-Cookie': await userCookie.serialize({}, {maxAge: Date.now()}),
     },
   });
+}
+
+export async function requestReset(request: Request) {
+  const formData = await request.formData();
+  let email = formData.get('email') as string;
+
+  let errors: Errors = {};
+  if (!email) errors.email = 'Please provide an email address';
+
+  if (Object.keys(errors).length) {
+    return errors;
+  }
+
+  email = email.trim();
+
+  const user = await db.user.findUnique({where: {email}});
+
+  if (!user) {
+    errors.email = 'No account with this email exists.';
+    return {errors};
+  }
+
+  const resetToken = crypto.randomBytes(32).toString('hex');
+  const resetExpiry = Date.now() + 3600000;
+
+  const updatedUser = await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      resetToken,
+      resetExpiry: String(resetExpiry),
+    },
+  });
+
+  if (updatedUser) {
+    await sendPasswordResetEmail(user.email, resetToken, user.id);
+    return {success: true};
+  }
+
+  errors.message = 'Error requesting password reset.';
+  return {errors};
+}
+
+export async function resetPassword(
+  request: Request,
+  userId?: string,
+  requestToken?: string
+) {
+  let errors: Errors = {};
+
+  const user = await db.user.findFirst({
+    where: {id: Number(userId), resetToken: requestToken},
+  });
+
+  if (!user || !user.resetExpiry) {
+    errors.message = 'Reset token has expired.';
+    return {errors};
+  }
+
+  const tokenExpired = Date.now() > Number(user.resetExpiry);
+
+  if (!user || !user.resetExpiry || tokenExpired) {
+    errors.message = 'Reset token has expired.';
+    return {errors};
+  }
+
+  const formData = await request.formData();
+  let password = formData.get('password') as string;
+  let repeatPassword = formData.get('repeatpassword') as string;
+
+  if (!password || !repeatPassword || password.length < 4) {
+    errors.message = 'Passwords must match and be more than 4 characters';
+    return {errors};
+  }
+
+  const hash = await bcrypt.hash(password, 10);
+
+  const updatedUser = await db.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      resetToken: null,
+      resetExpiry: null,
+      password: hash,
+    },
+  });
+
+  if (updatedUser) {
+    return redirect('/login');
+  }
+
+  errors.message = 'Error resetting password.';
+  return {errors};
 }
