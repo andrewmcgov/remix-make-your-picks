@@ -16,7 +16,7 @@ export const weekOptions2020 = [
 ];
 
 export const weekOptions2021 = [
-  {value: '16', label: 'Week 16'},
+  // {value: '16', label: 'Week 16'},
   {value: '17', label: 'Week 17'},
   {value: '18', label: 'Week 18'},
   // {value: 'WC', label: 'Wildcard Weekend'},

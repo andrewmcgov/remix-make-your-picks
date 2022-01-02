@@ -21,7 +21,7 @@ export function GameCard({game, user}: GameCardProps) {
       gameClosed={gameClosed}
     />
   ) : (
-    <NoUserPick gameStarted={gameStarted} />
+    <NoUserPick game={game} gameStarted={gameStarted} />
   );
 
   return (
