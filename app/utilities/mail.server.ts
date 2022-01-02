@@ -1,18 +1,18 @@
 import nodemailer from 'nodemailer';
 
-export const transport = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS,
-  },
-});
-
 export async function sendPasswordResetEmail(
   email: string,
   resetToken: string,
   id: number
 ) {
+  const transport = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.MAIL_USER,
+      pass: process.env.MAIL_PASS,
+    },
+  });
+
   const origin =
     process.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
