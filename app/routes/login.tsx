@@ -66,9 +66,9 @@ export default function LogIn() {
           Don't have an account? <Link to="/signup">Sign up!</Link>
         </p>
 
-        <p className="signup-link text-center">
+        {/* <p className="signup-link text-center">
           <Link to="/request-reset">Reset your password.</Link>
-        </p>
+        </p> */}
       </div>
     </Layout>
   );

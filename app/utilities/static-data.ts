@@ -1,4 +1,4 @@
-export const defaultWeek = '16';
+export const defaultWeek = '17';
 export const defaultSeason = '2021';
 
 export const seasonOptions = [
