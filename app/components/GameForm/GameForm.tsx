@@ -53,10 +53,22 @@ export function GameForm({game, teamOptions}: GameFormProps) {
 
     if (formRef.current && (name === 'date' || name === 'time')) {
       const formData = new FormData(formRef.current);
-      const date = formData.get('date');
-      const time = formData.get('time');
+      const date = formData.get('date') as string;
+      const time = formData.get('time') as string;
+      const [year, month, day] = date.split('-');
+      const [hours, minutes] = time.split(':');
 
-      setStart(new Date(`${date} ${time}`).toISOString());
+      const newStart = new Date(
+        Number(year),
+        Number(month),
+        Number(day),
+        Number(hours),
+        Number(minutes)
+      );
+
+      if (!isNaN(newStart.getHours())) {
+        setStart(newStart.toISOString());
+      }
     }
   }
 
