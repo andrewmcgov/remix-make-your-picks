@@ -1,9 +1,10 @@
+import React, {useRef, useState} from 'react';
 import {Form, useActionData, useTransition} from 'remix';
 import {
   defaultSeason,
   seasonOptions,
-  weekOptions2020,
   defaultWeek,
+  weekOptions2021,
 } from '~/utilities/static-data';
 import {AdminGame, Option} from '~/utilities/types';
 import {Select} from '../Select';
@@ -24,23 +25,46 @@ interface ActionResponse {
 
 function getDateTimeValues(date: Date) {
   return {
-    date: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
-    time: `${date.getHours()}:${
-      date.getMinutes() < 10 ? `0${date.getMinutes()}}` : date.getMinutes()
-    }`,
+    date: `${asTwoDigitValue(date.getFullYear())}-${asTwoDigitValue(
+      date.getMonth() + 1
+    )}-${asTwoDigitValue(date.getDate())}`,
+    time: `${date.getHours()}:${asTwoDigitValue(date.getMinutes())}`,
   };
+}
+
+function asTwoDigitValue(value: number) {
+  return value < 10 ? `0${value}` : value;
 }
 
 export function GameForm({game, teamOptions}: GameFormProps) {
   const actionData = useActionData<ActionResponse>();
   const transition = useTransition();
-  const dateTimeValues = game && getDateTimeValues(new Date(game.start));
+  const dateTimeValues = getDateTimeValues(
+    game ? new Date(game.start) : new Date()
+  );
   const saveButtonText = game ? 'Update game' : 'Create game';
+  const [start, setStart] = useState(
+    (game ? new Date(game.start) : new Date()).toISOString()
+  );
+  const formRef = useRef<HTMLFormElement>(null);
+
+  function handleChange(event: React.ChangeEvent<HTMLFormElement>) {
+    const name = event.target.name;
+
+    if (formRef.current && (name === 'date' || name === 'time')) {
+      const formData = new FormData(formRef.current);
+      const date = formData.get('date');
+      const time = formData.get('time');
+
+      setStart(new Date(`${date} ${time}`).toISOString());
+    }
+  }
 
   return (
     <div className="GameForm">
       <div className="card">
-        <Form method="post">
+        <Form method="post" onChange={handleChange} ref={formRef}>
+          <input type="text" value={start} name="start" readOnly hidden />
           <div className="form-groups">
             <div className="form-group">
               <Select
@@ -52,7 +76,7 @@ export function GameForm({game, teamOptions}: GameFormProps) {
               <Select
                 label="Select week"
                 name="week"
-                options={weekOptions2020}
+                options={weekOptions2021}
                 initialValue={game?.week || defaultWeek}
               />
             </div>
@@ -75,13 +99,13 @@ export function GameForm({game, teamOptions}: GameFormProps) {
                 type="date"
                 name="date"
                 label="Date"
-                defaultValue={dateTimeValues?.date}
+                defaultValue={dateTimeValues.date}
               />
               <TextField
                 type="time"
                 name="time"
                 label="Time"
-                defaultValue={dateTimeValues?.time || '13:00'}
+                defaultValue={game ? dateTimeValues?.time : '13:00'}
               />
             </div>
             <div className="button-group">

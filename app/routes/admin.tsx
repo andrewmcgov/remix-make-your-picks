@@ -64,7 +64,7 @@ export default function Admin() {
         </Link>
       </div>
       <GameFilter />
-      {games.length > 1 ? (
+      {games.length > 0 ? (
         <div className="card">
           <table>
             <tbody>

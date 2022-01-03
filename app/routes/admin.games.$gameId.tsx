@@ -66,14 +66,14 @@ export const action: ActionFunction = async ({request, params}) => {
     return {errors};
   }
 
-  const {homeId, awayId, date, time, week} = await getGameData(request);
+  const {homeId, awayId, startString, week} = await getGameData(request);
 
-  if (!homeId || !awayId || !date || !time || !week) {
+  if (!homeId || !awayId || !startString || !week) {
     errors.message = 'You must provide all values.';
     return {errors};
   }
 
-  const start = new Date(`${date} ${time}`);
+  const start = new Date(startString);
 
   const game = await db.game.update({
     where: {id: Number(params.gameId)},
