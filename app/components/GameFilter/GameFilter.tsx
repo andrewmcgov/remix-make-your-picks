@@ -1,8 +1,9 @@
 import React from 'react';
-import {Form, useSearchParams, useTransition} from 'remix';
+import {Form, useSearchParams, useSubmit, useTransition} from 'remix';
 
 import {
   defaultSeason,
+  defaultWeek,
   seasonOptions,
   weekOptions2020,
   weekOptions2021,
@@ -11,10 +12,12 @@ import {Select} from '~/components/Select';
 
 export function GameFilter() {
   const transition = useTransition();
+  const submit = useSubmit();
+  const [searchParams] = useSearchParams();
+
   const [filterOpen, setFilterOpen] = React.useState(false);
-  let [searchParams] = useSearchParams();
   const initialSeason = searchParams.get('season') || defaultSeason;
-  const initialWeek = searchParams.get('week') || '16';
+  const initialWeek = searchParams.get('week') || defaultWeek;
   const [currentSeason, setCurrentSeason] = React.useState(initialSeason);
   const weekOptions =
     currentSeason === '2020' ? weekOptions2020 : weekOptions2021;
@@ -30,9 +33,13 @@ export function GameFilter() {
     );
   }
 
+  function handleFormChange(event: React.ChangeEvent<HTMLFormElement>) {
+    submit(event.currentTarget, {replace: true});
+  }
+
   return (
     <div className="card">
-      <Form method="get" className="GameFilter">
+      <Form method="get" className="GameFilter" onChange={handleFormChange}>
         <div className="GameFilter--Filters">
           <Select
             label="Select season"
@@ -51,13 +58,10 @@ export function GameFilter() {
         <div className="GameFilter--buttons">
           <button
             onClick={() => setFilterOpen(false)}
-            className="secondary space-right"
+            className="secondary"
             disabled={submitting}
           >
             Cancel
-          </button>
-          <button type="submit" disabled={submitting}>
-            Update games
           </button>
         </div>
       </Form>

@@ -83,7 +83,7 @@ export const action: ActionFunction = async ({request}) => {
       },
     });
     if (newPick) {
-      return redirect('/');
+      return redirect(`/`);
     }
   }
 
