@@ -60,7 +60,7 @@ export function GameForm({game, teamOptions}: GameFormProps) {
 
       const newStart = new Date(
         Number(year),
-        Number(month),
+        Number(month) - 1,
         Number(day),
         Number(hours),
         Number(minutes)
