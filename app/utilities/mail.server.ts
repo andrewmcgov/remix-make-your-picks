@@ -1,16 +1,26 @@
-import nodemailer from 'nodemailer';
+import sgMail from '@sendgrid/mail';
+import formData from 'form-data';
+import Mailgun from 'mailgun.js';
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
 export async function sendPasswordResetEmail(
   email: string,
   resetToken: string,
   id: number
 ) {
-  const transport = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
-    },
+  if (!process.env.MAILGUN_API_KEY) {
+    return console.error('No mail API key!');
+  }
+
+  if (!process.env.MAIL_USER) {
+    return console.error('No mail API key!');
+  }
+
+  const mailgun = new Mailgun(formData);
+  const client = mailgun.client({
+    username: 'api',
+    key: process.env.MAILGUN_API_KEY as string,
   });
 
   const origin =
@@ -18,29 +28,26 @@ export async function sendPasswordResetEmail(
       ? 'http://localhost:3000'
       : 'https://makeyourpicks.ca';
 
-  if (!process.env.MAIL_USER) {
-    console.error('No mail user');
-  }
+  const message = {
+    to: email,
+    from: process.env.MAIL_USER,
+    subject: 'Reset your password',
+    text: 'Reset your makeyourpicks password',
+    html: makeEmail([
+      `You are recieving this email because you requested a password reset.`,
+      `If you did not request this password reset, ignore this email.`,
+      `<a href="${origin}/reset-password/${id}/${resetToken}">Click here to reset your password.</a>`,
+    ]),
+  };
 
-  if (!process.env.MAIL_PASS) {
-    console.error('No mail pass');
-  }
-
-  try {
-    await transport.sendMail({
-      from: process.env.MAIL_USER,
-      to: email,
-      subject: 'Reset your password.',
-      html: makeEmail([
-        `You are recieving this email because you requested a password reset.`,
-        `If you did not request this password reset, ignore this email.`,
-        `<a href="${origin}/reset-password/${id}/${resetToken}">Click here to reset your password.</a>`,
-      ]),
+  client.messages
+    .create(process.env.MAIL_DOMAIN as string, message)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
     });
-  } catch (err) {
-    console.error(err);
-    throw new Error('Error sending pick reminder email email!');
-  }
 }
 
 export function makeEmail(text: string[]) {
