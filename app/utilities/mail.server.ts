@@ -1,8 +1,5 @@
-import sgMail from '@sendgrid/mail';
 import formData from 'form-data';
 import Mailgun from 'mailgun.js';
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
 
 export async function sendPasswordResetEmail(
   email: string,
@@ -40,14 +37,15 @@ export async function sendPasswordResetEmail(
     ]),
   };
 
-  client.messages
-    .create(process.env.MAIL_DOMAIN as string, message)
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  try {
+    const res = await client.messages.create(
+      process.env.MAIL_DOMAIN as string,
+      message
+    );
+    console.log(res);
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export function makeEmail(text: string[]) {
