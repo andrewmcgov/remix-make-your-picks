@@ -110,6 +110,7 @@ function Document({
         {title ? <title>{title}</title> : null}
         <Meta />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="manifest" href="/site.webmanifest" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
