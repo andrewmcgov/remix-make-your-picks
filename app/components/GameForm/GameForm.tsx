@@ -6,17 +6,13 @@ import {
   defaultWeek,
   weekOptions2021,
 } from '~/utilities/static-data';
-import {AdminGame, Option} from '~/utilities/types';
+import {AdminGame, Option, Errors} from '~/utilities/types';
 import {Select} from '../Select';
 import {TextField} from '../TextField';
 
 export interface GameFormProps {
   game?: AdminGame;
   teamOptions: Option[];
-}
-
-interface Errors {
-  [key: string]: string;
 }
 
 interface ActionResponse {

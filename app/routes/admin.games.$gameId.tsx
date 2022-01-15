@@ -7,7 +7,7 @@ import {
   Link,
   Form,
 } from 'remix';
-import {SafeUser, AdminGame, Option} from '~/utilities/types';
+import {SafeUser, AdminGame, Option, Errors} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 import {db} from '~/utilities/db.server';
 import {Layout} from '~/components/Layout';
@@ -18,9 +18,6 @@ interface LoaderResponse {
   user: SafeUser;
   game: AdminGame;
   teamOptions: Option[];
-}
-interface Errors {
-  [key: string]: string;
 }
 
 export const meta: MetaFunction = () => {

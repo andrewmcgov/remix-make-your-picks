@@ -5,7 +5,7 @@ import {
   MetaFunction,
   ActionFunction,
 } from 'remix';
-import {SafeUser, Option} from '~/utilities/types';
+import {SafeUser, Option, Errors} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 import {isAdmin} from '~/utilities/user';
 import {db} from '~/utilities/db.server';
@@ -18,10 +18,6 @@ import {getGameData} from '~/utilities/games.server';
 interface LoaderResponse {
   user: SafeUser;
   teamOptions: Option[];
-}
-
-interface Errors {
-  [key: string]: string;
 }
 
 export const meta: MetaFunction = () => {

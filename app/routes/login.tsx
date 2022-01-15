@@ -10,10 +10,7 @@ import {
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';
 import {logIn} from '../utilities/user.server';
-
-interface Errors {
-  [key: string]: string;
-}
+import {Errors} from '~/utilities/types';
 
 interface ActionResponse {
   errors: Errors;

@@ -11,12 +11,9 @@ import {
 
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';
-import {requestReset, resetPassword} from '../utilities/user.server';
+import {resetPassword} from '../utilities/user.server';
 import {db} from '~/utilities/db.server';
-
-interface Errors {
-  [key: string]: string;
-}
+import {Errors} from '~/utilities/types';
 
 interface ActionResponse {
   errors?: Errors;

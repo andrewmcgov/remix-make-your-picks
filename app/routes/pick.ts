@@ -1,11 +1,8 @@
 import {ActionFunction, LoaderFunction, redirect} from 'remix';
 import {db} from '~/utilities/db.server';
 import {hasGameStarted} from '~/utilities/games';
+import {Errors} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
-
-interface Errors {
-  [key: string]: string;
-}
 
 export const loader: LoaderFunction = async () => {
   return redirect('/');

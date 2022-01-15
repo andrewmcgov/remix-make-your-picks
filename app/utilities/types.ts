@@ -31,3 +31,7 @@ export interface Option {
   value: string;
   label: string;
 }
+
+export interface Errors {
+  [key: string]: string;
+}

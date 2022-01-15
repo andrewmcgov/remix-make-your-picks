@@ -9,10 +9,7 @@ import {
 import {signUp} from '~/utilities/user.server';
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';
-
-interface Errors {
-  [key: string]: string;
-}
+import {Errors} from '~/utilities/types';
 
 interface ActionResponse {
   errors: Errors;
