@@ -42,6 +42,12 @@ export let loader: LoaderFunction = async ({request}) => {
     ? games.map((game) => {
         return {
           ...game,
+          homePickUsernames: game.picks
+            .filter((pick) => game.homeId === pick.teamId)
+            .map((pick) => pick.user.username),
+          awayPickUsernames: game.picks
+            .filter((pick) => game.awayId === pick.teamId)
+            .map((pick) => pick.user.username),
           userPick: game.picks.find((pick) => pick.userId === user?.id),
         };
       })
