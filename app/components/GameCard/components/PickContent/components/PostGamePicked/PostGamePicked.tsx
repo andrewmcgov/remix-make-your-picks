@@ -1,5 +1,6 @@
 import {FiTrendingDown, FiTrendingUp} from 'react-icons/fi';
 import {IndexGame, PickWithTeamAndUsername} from '~/utilities/types';
+import {PicksList} from '../../../PicksList';
 import {GameTime} from '../GameTime';
 
 export interface MidgamePickedProps {
@@ -22,6 +23,7 @@ export function PostGamePicked({game, userPick}: MidgamePickedProps) {
 
   return (
     <div className="vertically-spaced">
+      <PicksList game={game} />
       <GameTime start={game.start} />
       {icon}
       {text}
