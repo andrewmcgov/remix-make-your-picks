@@ -428,6 +428,38 @@ table a {
 }
 
 /*
+ * PicksList
+ */
+
+.PicksList {
+  display: flex;
+  gap: 2rem;
+  width: 100%;
+}
+
+.PicksList ul {
+  list-style-type: none;
+  width: 50%;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.PicksList li {
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+}
+
+.away-picks {
+  justify-content: flex-end;
+}
+
+.away-picks li {
+  margin-right: 0;
+  margin-left: 0.5rem;
+}
+
+/*
  * PAGES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 

@@ -11,7 +11,9 @@ export type PickWithTeamAndUsername = GamePick & {
 
 export type IndexGame = Game & {
   home: Team;
+  homePickUsernames: string[];
   away: Team;
+  awayPickUsernames: string[];
   start: string;
   picks: PickWithTeamAndUsername[];
   userPick?: PickWithTeamAndUsername;

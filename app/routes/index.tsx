@@ -6,6 +6,7 @@ import {db} from '~/utilities/db.server';
 import {GameCard} from '~/components/GameCard';
 import {GameFilter} from '~/components/GameFilter';
 import {defaultWeek, defaultSeason} from '../utilities/static-data';
+import { hasGameStarted } from '~/utilities/games';
 
 // https://remix.run/api/conventions#meta
 export const meta: MetaFunction = () => {
@@ -40,8 +41,16 @@ export let loader: LoaderFunction = async ({request}) => {
 
   games = user
     ? games.map((game) => {
+        const gameStarted = hasGameStarted(game);
         return {
           ...game,
+          homePickUsernames: gameStarted ? game.picks
+            .filter((pick) => game.homeId === pick.teamId)
+            .map((pick) => pick.user.username) : [],
+          awayPickUsernames: gameStarted ? game.picks
+            .filter((pick) => game.awayId === pick.teamId)
+            .map((pick) => pick.user.username) : [],
+          picks: [],
           userPick: game.picks.find((pick) => pick.userId === user?.id),
         };
       })
