@@ -24,6 +24,7 @@ export type AdminGame = Game & {
   away: Team;
   start: string;
   picks: Pick<GamePick, 'id'>[];
+  stillToPick?: string;
 };
 
 export interface Option {

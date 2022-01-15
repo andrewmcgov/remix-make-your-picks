@@ -37,6 +37,8 @@ export let loader: LoaderFunction = async ({request}) => {
   const week = url.searchParams.get('week') || defaultWeek;
   const season = url.searchParams.get('season') || defaultSeason;
 
+  const users = await db.user.findMany({select: {id: true, username: true}});
+
   let games = await db.game.findMany({
     where: {
       week,
@@ -45,8 +47,18 @@ export let loader: LoaderFunction = async ({request}) => {
     include: {
       home: true,
       away: true,
-      picks: {select: {id: true}},
+      picks: {select: {id: true, userId: true}},
     },
+  });
+
+  games = games.map((game) => {
+    return {
+      ...game,
+      stillToPick: users
+        .filter((user) => !game.picks.some((pick) => pick.userId === user.id))
+        .map((user) => user.username)
+        .join(', '),
+    };
   });
 
   return {user, games};
@@ -73,6 +85,7 @@ export default function Admin() {
                 <th>Home</th>
                 <th>Time</th>
                 <th>Picks</th>
+                <th>Not yet picked</th>
               </tr>
               {games.map((game) => {
                 const gamePath = `/admin/games/${game.id}`;
@@ -97,6 +110,9 @@ export default function Admin() {
                     </td>
                     <td>
                       <Link to={gamePath}>{game.picks.length}</Link>
+                    </td>
+                    <td>
+                      <Link to={gamePath}>{game.stillToPick}</Link>
                     </td>
                   </tr>
                 );
