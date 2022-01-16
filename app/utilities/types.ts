@@ -9,6 +9,10 @@ export type PickWithTeamAndUsername = GamePick & {
   };
 };
 
+export type PickWithGame = GamePick & {
+  game: Game | null;
+};
+
 export type IndexGame = Game & {
   home: Team;
   homePickUsernames: string[];

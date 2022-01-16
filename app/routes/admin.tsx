@@ -127,6 +127,9 @@ export default function Admin() {
           </p>
         </div>
       )}
+      <Link to="/admin/leaderboard" className="button">
+        Update leaderboard
+      </Link>
     </Layout>
   );
 }
