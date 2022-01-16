@@ -260,6 +260,7 @@ button.plain {
   margin-bottom: 1rem;
   border-radius: 15px;
   box-shadow: 3px 3px var(--color-foreground);
+  overflow: hidden;
 }
 
 .card--full {
