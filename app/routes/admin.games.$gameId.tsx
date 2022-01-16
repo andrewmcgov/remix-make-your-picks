@@ -6,6 +6,7 @@ import {
   ActionFunction,
   Link,
   Form,
+  useTransition,
 } from 'remix';
 import {SafeUser, AdminGame, Option, Errors} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
@@ -13,6 +14,7 @@ import {db} from '~/utilities/db.server';
 import {Layout} from '~/components/Layout';
 import {isAdmin} from '~/utilities/user';
 import {TextField} from '~/components/TextField';
+import {updateLeaderboard} from '~/utilities/leaderboard.server';
 
 interface LoaderResponse {
   user: SafeUser;
@@ -120,11 +122,18 @@ export const action: ActionFunction = async ({request, params}) => {
     return {errors};
   }
 
+  const updateLeaderboardResponse = await updateLeaderboard(user);
+
+  if (updateLeaderboardResponse.errors) {
+    return updateLeaderboardResponse;
+  }
+
   return redirect('/admin');
 };
 
 export default function AdminGame() {
   const {game, user} = useLoaderData<LoaderResponse>();
+  const transition = useTransition();
 
   return (
     <Layout user={user}>
@@ -152,7 +161,9 @@ export default function AdminGame() {
               />
             </div>
             <div className="button-group">
-              <button type="submit">Close game</button>
+              <button type="submit" disabled={Boolean(transition.submission)}>
+                {transition.submission ? 'Closing game...' : 'Close game'}
+              </button>
             </div>
           </div>
         </Form>

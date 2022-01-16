@@ -1,5 +1,6 @@
 import {User} from '@prisma/client';
 import {db} from './db.server';
+import {defaultSeason} from './static-data';
 import {Errors, SafeUser, PickWithGame} from './types';
 import {isAdmin} from './user';
 
@@ -116,4 +117,24 @@ function filterCorrectPicksByWeek(picks: PickWithGame[], season: string) {
     correctConferencePicks,
     correctSuperbowlPicks,
   };
+}
+
+export async function getLeaderboard(season: string = defaultSeason) {
+  let leaderboard = await db.leaderboardEntry.findMany({
+    where: {season},
+    include: {user: {select: {id: true, username: true}}},
+  });
+
+  // Filter out test user in prod
+  if (process.env.NODE_ENV !== 'development') {
+    leaderboard = leaderboard.filter((entry) => entry.userId !== 1);
+  }
+
+  return leaderboard
+    .map((entry) => ({
+      ...entry,
+      total:
+        entry.wildcard + entry.division + entry.conference + entry.superbowl,
+    }))
+    .sort((a, b) => b.total - a.total);
 }

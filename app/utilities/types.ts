@@ -1,4 +1,10 @@
-import {User, Game, Team, Pick as GamePick} from '@prisma/client';
+import {
+  User,
+  Game,
+  Team,
+  Pick as GamePick,
+  LeaderboardEntry,
+} from '@prisma/client';
 
 export type SafeUser = Pick<User, 'username' | 'email' | 'id' | 'isAdmin'>;
 
@@ -39,3 +45,11 @@ export interface Option {
 export interface Errors {
   [key: string]: string;
 }
+
+export type LeaderboardEntryWithUserAndTotal = LeaderboardEntry & {
+  user: {
+    id: number;
+    username: string;
+  };
+  total: number;
+};

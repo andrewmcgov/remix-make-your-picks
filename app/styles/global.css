@@ -177,14 +177,14 @@ button.plain {
 
 .Layout header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   margin-bottom: 2rem;
 }
 
 .Layout .logo {
   font-family: var(--font-heading);
-  font-size: 3rem;
+  font-size: 4rem;
   text-decoration: none;
   text-shadow: var(--color-accent-secondary) 3px 3px,
     var(--color-accent-primary) 6px 6px;
@@ -204,6 +204,11 @@ button.plain {
 }
 
 @media screen and (max-width: 500px) {
+  .Layout header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
   .Layout .logo {
     font-size: 2.1rem;
   }
@@ -254,7 +259,6 @@ button.plain {
   padding: 1rem;
   margin-bottom: 1rem;
   border-radius: 15px;
-  overflow: scroll;
   box-shadow: 3px 3px var(--color-foreground);
 }
 
@@ -512,4 +516,17 @@ table a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+/*
+   * Leaderboard
+   */
+
+.leaderboard-legend {
+  width: 100%;
+  margin-bottom: 0.8rem;
+}
+
+.scroll {
+  overflow: scroll;
 }

@@ -77,7 +77,7 @@ export default function Admin() {
       </div>
       <GameFilter />
       {games.length > 0 ? (
-        <div className="card">
+        <div className="card scroll">
           <table>
             <tbody>
               <tr>
