@@ -442,6 +442,7 @@ table a {
   display: flex;
   gap: 2rem;
   width: 100%;
+  align-items: flex-start;
 }
 
 .PicksList ul {
