@@ -55,7 +55,11 @@ export let loader: LoaderFunction = async ({request}) => {
     return {
       ...game,
       stillToPick: users
-        .filter((user) => !game.picks.some((pick) => pick.userId === user.id))
+        .filter(
+          (user) =>
+            !game.picks.some((pick) => pick.userId === user.id) ||
+            !(process.env.NODE_ENV !== 'development' && user.id === 1)
+        )
         .map((user) => user.username)
         .join(', '),
     };
