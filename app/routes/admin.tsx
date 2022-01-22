@@ -57,7 +57,7 @@ export let loader: LoaderFunction = async ({request}) => {
       stillToPick: users
         .filter(
           (user) =>
-            !game.picks.some((pick) => pick.userId === user.id) ||
+            !game.picks.some((pick) => pick.userId === user.id) &&
             !(process.env.NODE_ENV !== 'development' && user.id === 1)
         )
         .map((user) => user.username)
