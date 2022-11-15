@@ -7,8 +7,20 @@ import {
   seasonOptions,
   weekOptions2020,
   weekOptions2021,
+  weekOptions2022,
 } from '~/utilities/static-data';
 import {Select} from '~/components/Select';
+
+function getWeekOptions(season: string) {
+  switch (season) {
+    case '2020':
+      return weekOptions2020;
+    case '2021':
+      return weekOptions2021;
+    default:
+      return weekOptions2022;
+  }
+}
 
 export function GameFilter() {
   const transition = useTransition();
@@ -19,8 +31,7 @@ export function GameFilter() {
   const initialSeason = searchParams.get('season') || defaultSeason;
   const initialWeek = searchParams.get('week') || defaultWeek;
   const [currentSeason, setCurrentSeason] = React.useState(initialSeason);
-  const weekOptions =
-    currentSeason === '2020' ? weekOptions2020 : weekOptions2021;
+  const weekOptions = getWeekOptions(currentSeason);
   const submitting = Boolean(transition.submission);
 
   if (!filterOpen) {

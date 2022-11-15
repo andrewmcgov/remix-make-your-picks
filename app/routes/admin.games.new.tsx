@@ -64,7 +64,7 @@ export const action: ActionFunction = async ({request}) => {
       start,
       league: 'NFL',
       week,
-      season: '2021',
+      season: '2022',
     },
   });
 
