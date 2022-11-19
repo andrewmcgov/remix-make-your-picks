@@ -11,7 +11,7 @@ import {
 
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';
-import {resetPassword} from '../utilities/user.server';
+import {resetPassword} from '~/utilities/user.server';
 import {db} from '~/utilities/db.server';
 import {Errors} from '~/utilities/types';
 

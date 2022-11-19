@@ -14,6 +14,7 @@ import {GameForm} from '~/components/GameForm';
 import {getTeamOptions} from '~/utilities/teams.server';
 import {isAdmin} from '~/utilities/user';
 import {getGameData} from '~/utilities/games.server';
+import {defaultSeason, defaultWeek} from '~/utilities/static-data';
 
 interface LoaderResponse {
   user: SafeUser;
@@ -63,7 +64,9 @@ export const action: ActionFunction = async ({request, params}) => {
     return {errors};
   }
 
-  const {homeId, awayId, startString, week} = await getGameData(request);
+  const {homeId, awayId, startString, week, season} = await getGameData(
+    request
+  );
 
   if (!homeId || !awayId || !startString || !week) {
     errors.message = 'You must provide all values.';
@@ -80,7 +83,7 @@ export const action: ActionFunction = async ({request, params}) => {
       start,
       league: 'NFL',
       week: week,
-      season: '2021',
+      season: season || defaultSeason,
     },
   });
 

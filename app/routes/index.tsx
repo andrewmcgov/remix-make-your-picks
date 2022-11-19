@@ -5,8 +5,8 @@ import {SafeUser, IndexGame} from '~/utilities/types';
 import {db} from '~/utilities/db.server';
 import {GameCard} from '~/components/GameCard';
 import {GameFilter} from '~/components/GameFilter';
-import {defaultWeek, defaultSeason} from '../utilities/static-data';
-import { hasGameStarted } from '~/utilities/games';
+import {hasGameStarted} from '~/utilities/games';
+import {gameFilters} from '~/utilities/games.server';
 
 // https://remix.run/api/conventions#meta
 export const meta: MetaFunction = () => {
@@ -23,9 +23,7 @@ interface IndexLoaderResponse {
 
 export let loader: LoaderFunction = async ({request}) => {
   const user = await currentUser(request);
-  let url = new URL(request.url);
-  const week = url.searchParams.get('week') || defaultWeek;
-  const season = url.searchParams.get('season') || defaultSeason;
+  const {week, season} = gameFilters(request);
 
   let games = await db.game.findMany({
     where: {
@@ -44,12 +42,16 @@ export let loader: LoaderFunction = async ({request}) => {
         const gameStarted = hasGameStarted(game);
         return {
           ...game,
-          homePickUsernames: gameStarted ? game.picks
-            .filter((pick) => game.homeId === pick.teamId)
-            .map((pick) => pick.user.username) : [],
-          awayPickUsernames: gameStarted ? game.picks
-            .filter((pick) => game.awayId === pick.teamId)
-            .map((pick) => pick.user.username) : [],
+          homePickUsernames: gameStarted
+            ? game.picks
+                .filter((pick) => game.homeId === pick.teamId)
+                .map((pick) => pick.user.username)
+            : [],
+          awayPickUsernames: gameStarted
+            ? game.picks
+                .filter((pick) => game.awayId === pick.teamId)
+                .map((pick) => pick.user.username)
+            : [],
           picks: [],
           userPick: game.picks.find((pick) => pick.userId === user?.id),
         };
