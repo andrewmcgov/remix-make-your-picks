@@ -22,7 +22,7 @@ export const action: ActionFunction = async ({request}) => {
   const errors: Errors = {};
   const user = await currentUser(request);
 
-  if (!user) {
+  if (!user || !isAdmin(user)) {
     errors.message =
       'You must be logged in as an Admin to update the leaderboard';
     return {errors};
@@ -31,7 +31,7 @@ export const action: ActionFunction = async ({request}) => {
   const result = await updateLeaderboard(user);
 
   if (result.success) {
-    return redirect('/');
+    return redirect('/leaderboard');
   }
 
   return result;
