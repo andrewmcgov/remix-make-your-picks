@@ -1,14 +1,21 @@
-import {LoaderFunction, useLoaderData} from 'remix';
+import {LoaderFunction, MetaFunction, useLoaderData} from 'remix';
 import {Layout} from '~/components/Layout';
 import {LeaderboardTable} from '~/components/LeaderboardTable';
 import {getLeaderboard} from '~/utilities/leaderboard.server';
-import {LeaderboardEntryWithUser, SafeUser} from '~/utilities/types';
+import {LeaderboardEntryWithUserAndTotal, SafeUser} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 
 interface LoaderResponse {
   user: SafeUser | null;
-  leaderboard: LeaderboardEntryWithUser[];
+  leaderboard: LeaderboardEntryWithUserAndTotal[];
 }
+
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Leaderboard | Make your picks',
+    description: 'NFL playoff picks',
+  };
+};
 
 export let loader: LoaderFunction = async ({request}) => {
   const user = await currentUser(request);
