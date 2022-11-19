@@ -11,7 +11,7 @@ import {isAdmin} from '~/utilities/user';
 import {db} from '~/utilities/db.server';
 import {Layout} from '~/components/Layout';
 import {GameFilter} from '~/components/GameFilter';
-import {format} from 'date-fns';
+import {AdminGamesTable} from '~/components/AdminGamesTable';
 import {gameFilters} from '~/utilities/games.server';
 
 interface LoaderResponse {
@@ -76,57 +76,7 @@ export default function Admin() {
         </Link>
       </div>
       <GameFilter />
-      {games.length > 0 ? (
-        <div className="card scroll">
-          <table>
-            <tbody>
-              <tr>
-                <th>Away</th>
-                <th>Home</th>
-                <th>Time</th>
-                <th>Picks</th>
-                <th>Not yet picked</th>
-              </tr>
-              {games.map((game) => {
-                const gamePath = `/admin/games/${game.id}`;
-                return (
-                  <tr key={game.id}>
-                    <td>
-                      <Link to={gamePath}>
-                        {game.away.city}
-                        {game.awayScore !== null && ` - ${game.awayScore}`}
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to={gamePath}>
-                        {game.home.city}
-                        {game.homeScore !== null && ` - ${game.homeScore}`}
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to={gamePath}>
-                        {format(new Date(game.start), 'E LLL do, y h:mm bbb')}
-                      </Link>
-                    </td>
-                    <td>
-                      <Link to={gamePath}>{game.picks.length}</Link>
-                    </td>
-                    <td>
-                      <Link to={gamePath}>{game.stillToPick}</Link>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        <div className="card">
-          <p className="empty-state">
-            No games found for this week. Try changing the filters above.
-          </p>
-        </div>
-      )}
+      <AdminGamesTable games={games} />
       <Link to="/admin/leaderboard" className="button">
         Update leaderboard
       </Link>
