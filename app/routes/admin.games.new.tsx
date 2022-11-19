@@ -59,8 +59,6 @@ export const action: ActionFunction = async ({request}) => {
 
   const start = new Date(startString);
 
-  console.log(startString);
-
   const game = await db.game.create({
     data: {
       home: {connect: {id: Number(homeId)}},
