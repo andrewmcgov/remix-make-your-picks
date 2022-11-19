@@ -4,10 +4,6 @@ import {hasGameStarted} from '~/utilities/games';
 import {Errors} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 
-export const loader: LoaderFunction = async () => {
-  return redirect('/');
-};
-
 export const action: ActionFunction = async ({request}) => {
   const user = await currentUser(request);
 
@@ -28,8 +24,6 @@ export const action: ActionFunction = async ({request}) => {
     return {errors};
   }
 
-  console.log('game and team exist');
-
   const game = await db.game.findUnique({where: {id: Number(gameId)}});
 
   if (!game) {
@@ -37,21 +31,15 @@ export const action: ActionFunction = async ({request}) => {
     return {errors};
   }
 
-  console.log('game found in db');
-
   if (hasGameStarted(game)) {
     errors.message = 'This game has already started.';
     return {errors};
   }
 
-  console.log('game has not started');
-
   if (Number(teamId) !== game.homeId && Number(teamId) !== game.awayId) {
     errors.message = 'The team you picked is not playing in this game.';
     return {errors};
   }
-
-  console.log('picked team id is in game');
 
   const existingPick = await db.pick.findFirst({
     where: {
