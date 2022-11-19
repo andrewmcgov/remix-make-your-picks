@@ -48,14 +48,18 @@ export const action: ActionFunction = async ({request}) => {
     return {errors};
   }
 
-  const {homeId, awayId, startString, week} = await getGameData(request);
+  const {homeId, awayId, startString, week, season} = await getGameData(
+    request
+  );
 
-  if (!homeId || !awayId || !startString || !week) {
+  if (!homeId || !awayId || !startString || !week || !season) {
     errors.message = 'You must provide all values.';
     return {errors};
   }
 
   const start = new Date(startString);
+
+  console.log(startString);
 
   const game = await db.game.create({
     data: {
@@ -64,7 +68,7 @@ export const action: ActionFunction = async ({request}) => {
       start,
       league: 'NFL',
       week,
-      season: '2022',
+      season,
     },
   });
 
