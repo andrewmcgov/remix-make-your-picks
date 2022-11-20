@@ -1,11 +1,5 @@
-import {
-  Form,
-  ActionFunction,
-  useActionData,
-  useTransition,
-  Link,
-  MetaFunction,
-} from 'remix';
+import {Form, useActionData, useTransition, Link} from '@remix-run/react';
+import {ActionFunction, MetaFunction} from '@remix-run/node';
 
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';

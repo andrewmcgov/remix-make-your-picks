@@ -1,4 +1,5 @@
-import {LoaderFunction, MetaFunction, useLoaderData} from 'remix';
+import {MetaFunction, LoaderFunction} from '@remix-run/node';
+import {useLoaderData} from '@remix-run/react';
 import {Layout} from '~/components/Layout';
 import {LeaderboardTable} from '~/components/LeaderboardTable';
 import {getLeaderboard} from '~/utilities/leaderboard.server';

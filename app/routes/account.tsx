@@ -1,11 +1,5 @@
-import {
-  LoaderFunction,
-  useLoaderData,
-  redirect,
-  Form,
-  useTransition,
-  MetaFunction,
-} from 'remix';
+import {useLoaderData, Form, useTransition} from '@remix-run/react';
+import {LoaderFunction, redirect, MetaFunction} from '@remix-run/node';
 import {SafeUser} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 import {Layout} from '~/components/Layout';

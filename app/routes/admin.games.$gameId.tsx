@@ -1,13 +1,11 @@
+import {useLoaderData, Link, Form, useTransition} from '@remix-run/react';
 import {
   LoaderFunction,
-  useLoaderData,
   redirect,
   MetaFunction,
   ActionFunction,
-  Link,
-  Form,
-  useTransition,
-} from 'remix';
+} from '@remix-run/node';
+
 import {SafeUser, AdminGame, Option, Errors} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 import {db} from '~/utilities/db.server';

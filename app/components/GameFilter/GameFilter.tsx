@@ -1,5 +1,10 @@
 import React from 'react';
-import {Form, useSearchParams, useSubmit, useTransition} from 'remix';
+import {
+  Form,
+  useSearchParams,
+  useSubmit,
+  useTransition,
+} from '@remix-run/react';
 
 import {
   defaultSeason,
