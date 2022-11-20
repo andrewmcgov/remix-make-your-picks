@@ -1,4 +1,5 @@
-import {MetaFunction, LoaderFunction, useLoaderData} from 'remix';
+import {MetaFunction, LoaderFunction} from '@remix-run/node';
+import {useLoaderData} from '@remix-run/react';
 import {currentUser} from '~/utilities/user.server';
 import {Layout} from '~/components/Layout';
 import {SafeUser, IndexGame} from '~/utilities/types';

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Link} from 'remix';
+import {Link} from '@remix-run/react';
 import {FiMenu, FiX} from 'react-icons/fi';
 import {SafeUser} from '~/utilities/types';
 import {isAdmin} from '~/utilities/user';

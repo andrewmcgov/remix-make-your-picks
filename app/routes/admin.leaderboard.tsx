@@ -1,12 +1,10 @@
 import {
-  ActionFunction,
   Form,
-  LoaderFunction,
-  redirect,
   useActionData,
   useLoaderData,
   useTransition,
-} from 'remix';
+} from '@remix-run/react';
+import {ActionFunction, LoaderFunction, redirect} from '@remix-run/node';
 import {Layout} from '~/components/Layout';
 import {updateLeaderboard} from '~/utilities/leaderboard.server';
 import {Errors, SafeUser} from '~/utilities/types';

@@ -1,13 +1,11 @@
 import {
   Form,
-  ActionFunction,
   useActionData,
   useTransition,
   Link,
-  MetaFunction,
-  LoaderFunction,
   useLoaderData,
-} from 'remix';
+} from '@remix-run/react';
+import {ActionFunction, MetaFunction, LoaderFunction} from '@remix-run/node';
 
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';

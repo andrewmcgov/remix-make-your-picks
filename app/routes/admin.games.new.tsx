@@ -1,10 +1,10 @@
 import {
   LoaderFunction,
-  useLoaderData,
   redirect,
   MetaFunction,
   ActionFunction,
-} from 'remix';
+} from '@remix-run/node';
+import {useLoaderData} from '@remix-run/react';
 import {SafeUser, Option, Errors} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 import {isAdmin} from '~/utilities/user';

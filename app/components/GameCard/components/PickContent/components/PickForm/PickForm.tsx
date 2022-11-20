@@ -1,4 +1,4 @@
-import {Form, useTransition} from 'remix';
+import {Form, useTransition} from '@remix-run/react';
 import {IndexGame} from '~/utilities/types';
 
 export interface PickFormProps {
