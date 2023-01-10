@@ -130,7 +130,6 @@ button.plain {
   display: flex;
   gap: 1rem;
   justify-content: space-between;
-  align-items: end;
 }
 
 .form-groups {
@@ -432,6 +431,17 @@ tr:nth-child(odd) td {
 
 table a {
   text-decoration: none;
+}
+
+/*
+ * Heading with Action
+ */
+
+.HeadingWithAction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 2rem;
 }
 
 /*

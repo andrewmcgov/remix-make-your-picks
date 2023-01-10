@@ -118,6 +118,44 @@ export async function logIn(request: Request) {
   });
 }
 
+export async function updateUser(request: Request) {
+  const formData = await request.formData();
+  let email = formData.get('email') as string;
+  let username = formData.get('username') as string;
+  let errors: Errors = {};
+  if (!email) errors.email = 'Please provide an email';
+  if (!username) errors.username = 'Please provide a username';
+
+  if (Object.keys(errors).length) {
+    return {errors};
+  }
+
+  const user = await currentUser(request);
+
+  if (!user) {
+    return redirect('/login');
+  }
+
+  email = email.trim().toLowerCase();
+
+  if (!validateEmail(email)) {
+    errors.email = 'Please provide a valid email!';
+    return {errors};
+  }
+
+  const updatedUser = await db.user.update({
+    where: {id: user.id},
+    data: {email, username},
+  });
+
+  if (!updatedUser) {
+    errors.banner = 'Error updating user!';
+    return null;
+  }
+
+  return redirect('/account');
+}
+
 export async function currentUser(request: Request): Promise<SafeUser | null> {
   const cookieHeader = request.headers.get('Cookie');
   const cookie = (await userCookie.parse(cookieHeader)) || {};
