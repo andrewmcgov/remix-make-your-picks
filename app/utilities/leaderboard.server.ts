@@ -6,7 +6,7 @@ import {isAdmin} from './user';
 
 export async function updateLeaderboard(user: SafeUser) {
   const errors: Errors = {};
-  const season = '2021';
+  const season = defaultSeason;
 
   if (!isAdmin(user)) {
     errors.message = 'Only admins can update the leaderboard';
