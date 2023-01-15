@@ -1,12 +1,130 @@
 import {PrismaClient} from '@prisma/client';
 import {faker} from '@faker-js/faker';
+import {Team} from '@prisma/client';
+import bcrypt from 'bcrypt';
+import {updateLeaderboardEntryForUser} from '../app/utilities/leaderboard.server';
 
 const db = new PrismaClient();
 
 const SEASONS = ['2020', '2021', '2022'];
 
+function shuffle(array: any[]) {
+  array.sort(() => Math.random() - 0.5);
+}
+
+function getGamesforSeason(season: string, allTeams: Team[]) {
+  const teams = [...allTeams];
+  shuffle(teams);
+  const startTime = new Date(`01/02/${season}`);
+  return [
+    {
+      homeId: teams[0].id,
+      awayId: teams[1].id,
+      week: 'WC',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[2].id,
+      awayId: teams[3].id,
+      week: 'WC',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[4].id,
+      awayId: teams[5].id,
+      week: 'WC',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[6].id,
+      awayId: teams[7].id,
+      week: 'WC',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[8].id,
+      awayId: teams[9].id,
+      week: 'WC',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[10].id,
+      awayId: teams[11].id,
+      week: 'WC',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[0].id,
+      awayId: teams[1].id,
+      week: 'DIV',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[2].id,
+      awayId: teams[3].id,
+      week: 'DIV',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[4].id,
+      awayId: teams[5].id,
+      week: 'DIV',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[6].id,
+      awayId: teams[7].id,
+      week: 'DIV',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[7].id,
+      awayId: teams[13].id,
+      week: 'CC',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[12].id,
+      awayId: teams[1].id,
+      week: 'CC',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+    {
+      homeId: teams[7].id,
+      awayId: teams[1].id,
+      week: 'SB',
+      start: startTime,
+      season,
+      league: 'NFL',
+    },
+  ];
+}
+
 (async () => {
-  // Check to make sure that the teams have already been seeded, if not, throw an error
   const teams = await db.team.findMany();
 
   if (teams.length === 0) {
@@ -17,143 +135,39 @@ const SEASONS = ['2020', '2021', '2022'];
 
   console.log(`${teams.length} teams found in the database`);
 
-  // Make a bunch of games for each week of playoffs in all available seasons
-
-  // Chose 14 teams to be involved in the playoffs
-  const playoffTeams = teams.slice(0, 14);
-
   console.log('Creating games...');
   await Promise.all(
     SEASONS.map(async (season) => {
       // make 6 games for wildcard weekend
-      const games = await db.game.createMany({
-        data: [
-          {
-            homeId: playoffTeams[0].id,
-            awayId: playoffTeams[1].id,
-            week: 'WC',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[2].id,
-            awayId: playoffTeams[3].id,
-            week: 'WC',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[4].id,
-            awayId: playoffTeams[5].id,
-            week: 'WC',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[6].id,
-            awayId: playoffTeams[7].id,
-            week: 'WC',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[8].id,
-            awayId: playoffTeams[9].id,
-            week: 'WC',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[10].id,
-            awayId: playoffTeams[11].id,
-            week: 'WC',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[0].id,
-            awayId: playoffTeams[1].id,
-            week: 'DIV',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[2].id,
-            awayId: playoffTeams[3].id,
-            week: 'DIV',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[4].id,
-            awayId: playoffTeams[5].id,
-            week: 'DIV',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[6].id,
-            awayId: playoffTeams[7].id,
-            week: 'DIV',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[7].id,
-            awayId: playoffTeams[13].id,
-            week: 'CC',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[12].id,
-            awayId: playoffTeams[1].id,
-            week: 'CC',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-          {
-            homeId: playoffTeams[12].id,
-            awayId: playoffTeams[1].id,
-            week: 'CC',
-            start: faker.datatype.datetime(),
-            season,
-            league: 'NFL',
-          },
-        ],
+      await db.game.createMany({
+        data: getGamesforSeason(season, teams),
       });
     })
   );
   console.log('Games created!');
 
-  // Make 10 users
   console.log('Creating users...');
-  const users = await db.user.createMany({
-    data: Array(10)
-      .fill('')
-      .map(() => {
-        return {
-          username: faker.internet.userName(),
-          email: faker.internet.email(),
-          password: faker.internet.password(),
-        };
-      }),
+  const mockPassword = await bcrypt.hash('test', 10);
+  await db.user.createMany({
+    data: [
+      {
+        username: 'Big Tester 76',
+        email: 'test@test.com',
+        password: mockPassword,
+      },
+      ...Array(10)
+        .fill('')
+        .map(() => {
+          return {
+            username: faker.internet.userName(),
+            email: faker.internet.email(),
+            password: mockPassword,
+          };
+        }),
+    ],
   });
   console.log('Users created!');
 
-  // Pick all games for all users
   const allUsers = await db.user.findMany();
   const allGames = await db.game.findMany();
 
@@ -179,17 +193,10 @@ const SEASONS = ['2020', '2021', '2022'];
   );
   console.log('Picks created!');
 
-  // close all games
-
   const allGamesWithPicks = await db.game.findMany({
     include: {
       picks: true,
     },
-  });
-
-  console.log({
-    allGamesCount: allGames.length,
-    allGamesWithPicksCount: allGamesWithPicks.length,
   });
 
   console.log('Closing games and assigning winners...');
@@ -222,5 +229,17 @@ const SEASONS = ['2020', '2021', '2022'];
     })
   );
 
-  console.log('DB seeded with teams, users, games, and picks!');
+  console.log('Creating leaderboards...');
+  await Promise.all(
+    SEASONS.map(async (season) => {
+      Promise.all(
+        allUsers.map(async (user) => {
+          updateLeaderboardEntryForUser(user, season);
+        })
+      );
+    })
+  );
+  console.log('Leaderboards created!');
+
+  console.log('DB seeded with teams, users, games, picks, and leaderboards!');
 })();

@@ -30,7 +30,10 @@ export async function updateLeaderboard(user: SafeUser) {
   return {success: true};
 }
 
-async function updateLeaderboardEntryForUser(user: User, season: string) {
+export async function updateLeaderboardEntryForUser(
+  user: User,
+  season: string
+) {
   const leaderBoardEntry = await findOrCreateLeaderboardEntry(user.id, season);
 
   const userPIcks = await db.pick.findMany({

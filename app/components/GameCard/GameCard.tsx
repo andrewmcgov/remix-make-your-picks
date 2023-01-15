@@ -12,7 +12,6 @@ export function GameCard({game, user}: GameCardProps) {
   const gameStarted = hasGameStarted(game);
   const gameClosed = isGameClosed(game);
 
-  console.log({gameStarted, gameClosed});
   const pickMarkup = user ? (
     <PickContent
       game={game}

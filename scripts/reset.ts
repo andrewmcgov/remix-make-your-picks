@@ -1,6 +1,11 @@
+import * as readline from 'node:readline/promises';
+import {stdin as input, stdout as output} from 'node:process';
+import dotenv from 'dotenv';
 import {PrismaClient} from '@prisma/client';
 
+const rl = readline.createInterface({input, output});
 const db = new PrismaClient();
+dotenv.config();
 
 async function deleteAllPicks() {
   console.log('Deleting all picks...');
@@ -21,7 +26,24 @@ async function deleteAllUsers() {
 }
 
 (async () => {
+  if (!process.env.DATABASE_URL?.includes('localhost')) {
+    console.error('This script can only be run locally.');
+    return;
+  }
+
+  const answer = await rl.question(
+    'Are you sure you want to delete all data? (y/n): '
+  );
+
+  rl.close();
+
+  if (answer !== 'y') {
+    console.log('Aborting...');
+    return;
+  }
+
   await deleteAllPicks();
   await deleteAllGames();
   await deleteAllUsers();
+  console.log('Done!');
 })();
