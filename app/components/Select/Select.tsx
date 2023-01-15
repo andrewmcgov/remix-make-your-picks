@@ -2,6 +2,7 @@ import {Option} from '~/utilities/types';
 export interface SelectProps {
   name: string;
   label: string;
+  labelHidden?: boolean;
   options: Option[];
   initialValue: string;
   onChange?: (value: string) => void;
@@ -11,6 +12,7 @@ export interface SelectProps {
 export function Select({
   name,
   label,
+  labelHidden = false,
   options,
   initialValue,
   onChange,
@@ -19,7 +21,7 @@ export function Select({
   return (
     <div className="Select">
       <label>
-        {label}
+        <span className={labelHidden ? 'visuallyHidden' : ''}>{label}</span>
         <select
           name={name}
           onChange={onChange ? (e) => onChange(e.target.value) : undefined}
