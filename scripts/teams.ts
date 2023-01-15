@@ -1,7 +1,3 @@
-const prisma = require('@prisma/client');
-
-const db = new prisma.PrismaClient();
-
 const teams = [
   {
     city: 'Arizona',
@@ -229,7 +225,7 @@ const teams = [
   },
 ];
 
-const nflTeams = teams.map(({city, name, abr}) => {
+export const nflTeams = teams.map(({city, name, abr}) => {
   return {
     city,
     fullName: city + ' ' + name,
@@ -238,21 +234,3 @@ const nflTeams = teams.map(({city, name, abr}) => {
     abr,
   };
 });
-
-async function seedTeams() {
-  try {
-    const teams = await db.team.createMany({
-      data: nflTeams,
-    });
-
-    if (teams.count > 1) {
-      console.log('Seeded teams in the database');
-    } else {
-      console.error('Error seeding teams in the database..');
-    }
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-seedTeams();
