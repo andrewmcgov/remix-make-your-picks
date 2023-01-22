@@ -4,6 +4,7 @@ export interface TextFieldProps {
   type: string;
   defaultValue?: string;
   error?: string;
+  pattern?: string;
 }
 
 export function TextField({
@@ -12,12 +13,18 @@ export function TextField({
   label,
   defaultValue,
   error,
+  pattern,
 }: TextFieldProps) {
   return (
     <div className="TextField">
       <label>
         {label}
-        <input type={type} name={name} defaultValue={defaultValue} />
+        <input
+          type={type}
+          name={name}
+          defaultValue={defaultValue}
+          pattern={pattern}
+        />
       </label>
       {error && <p className="TextField--error">{error}</p>}
     </div>

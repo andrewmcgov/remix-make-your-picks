@@ -150,11 +150,13 @@ export default function AdminGame() {
               <TextField
                 type="number"
                 name="awayScore"
+                pattern="[0-9]*"
                 label={`${game.away.nickName} score`}
               />
               <TextField
                 type="number"
                 name="homeScore"
+                pattern="[0-9]*"
                 label={`${game.home.nickName} score`}
               />
             </div>
