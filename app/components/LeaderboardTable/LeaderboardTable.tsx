@@ -5,6 +5,10 @@ export interface LeaderboardTableProps {
 }
 
 export function LeaderboardTable({leaderboard}: LeaderboardTableProps) {
+  const showTiebreaker = leaderboard?.some(
+    (entry) => entry.tieBreaker !== undefined
+  );
+
   return (
     <>
       <div className="leaderboard-legend">
@@ -12,6 +16,7 @@ export function LeaderboardTable({leaderboard}: LeaderboardTableProps) {
           <strong>Points per correct pick</strong>
         </p>
         <p>Wildcard: 2, Divisional: 2, Conference: 4, Superbowl: 5</p>
+        <p>Tiebreaker format: guess / diff</p>
       </div>
       <div className="scroll">
         <table>
@@ -23,6 +28,7 @@ export function LeaderboardTable({leaderboard}: LeaderboardTableProps) {
               <th>Divisional</th>
               <th>Conference</th>
               <th>Superbowl</th>
+              {showTiebreaker ? <th>Tiebreaker</th> : null}
               <th>Total</th>
             </tr>
             {leaderboard?.map((entry, index) => (
@@ -33,7 +39,16 @@ export function LeaderboardTable({leaderboard}: LeaderboardTableProps) {
                 <td>{entry.division}</td>
                 <td>{entry.conference}</td>
                 <td>{entry.superbowl}</td>
-                <td>{entry.total}</td>
+                {showTiebreaker ? (
+                  <td>{`${entry.tieBreaker || '-'}${
+                    entry.diff !== undefined
+                      ? ` / ${entry.diff > 0 ? `+${entry.diff}` : entry.diff}`
+                      : ' / ?'
+                  }`}</td>
+                ) : null}
+                <td>
+                  <strong>{entry.total}</strong>
+                </td>
               </tr>
             ))}
           </tbody>

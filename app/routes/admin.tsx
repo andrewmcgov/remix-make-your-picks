@@ -12,6 +12,8 @@ import {gameFilters} from '~/utilities/games.server';
 interface LoaderResponse {
   user: SafeUser;
   games: AdminGame[];
+  totalTieBreakers: number;
+  usersWithoutTiebreaker: string;
 }
 
 export const meta: MetaFunction = () => {
@@ -30,6 +32,17 @@ export let loader: LoaderFunction = async ({request}) => {
 
   const {week, season} = gameFilters(request);
   const users = await db.user.findMany({select: {id: true, username: true}});
+  const tieBreakers =
+    week === 'SB' ? await db.tieBreaker.findMany({where: {season}}) : undefined;
+  const usersWithoutTiebreaker = users
+    .filter(
+      (user) =>
+        !tieBreakers?.some((tieBreaker) => tieBreaker.userId === user.id)
+    )
+    .map((user) => user.username)
+    .join(', ');
+  const totalTieBreakers = tieBreakers?.length || 0;
+
   const games = await db.game.findMany({
     where: {
       week,
@@ -56,11 +69,17 @@ export let loader: LoaderFunction = async ({request}) => {
     };
   });
 
-  return {user, games: gamesWithStillToPickUsers};
+  return {
+    user,
+    games: gamesWithStillToPickUsers,
+    totalTieBreakers,
+    usersWithoutTiebreaker,
+  };
 };
 
 export default function Admin() {
-  const {user, games} = useLoaderData<LoaderResponse>();
+  const {user, games, totalTieBreakers, usersWithoutTiebreaker} =
+    useLoaderData<LoaderResponse>();
 
   return (
     <Layout user={user}>
@@ -71,6 +90,12 @@ export default function Admin() {
         </Link>
       </div>
       <GameFilter />
+      {games[0]?.week === 'SB' ? (
+        <div className="card">
+          <p>Total tiebreakers picked: {totalTieBreakers}</p>
+          <p>Still to pick: {usersWithoutTiebreaker || 'None!'}</p>
+        </div>
+      ) : null}
       <AdminGamesTable games={games} />
       <Link to="/admin/leaderboard" className="button">
         Update leaderboard

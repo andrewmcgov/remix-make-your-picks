@@ -52,4 +52,6 @@ export type LeaderboardEntryWithUserAndTotal = LeaderboardEntry & {
     username: string;
   };
   total: number;
+  tieBreaker?: number;
+  diff?: number;
 };
