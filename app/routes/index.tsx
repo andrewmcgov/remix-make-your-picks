@@ -53,7 +53,8 @@ export let loader: LoaderFunction = async ({request}) => {
         })
       : null;
 
-  const hasSuperBowlStarted = week === 'SB' && hasGameStarted(games[0]);
+  const hasSuperBowlStarted =
+    week === 'SB' && games[0] && hasGameStarted(games[0]);
 
   games = user
     ? games.map((game) => {
@@ -106,6 +107,7 @@ export const action: ActionFunction = ({request}) => {
 export default function Index() {
   const {user, games, userTieBreaker} = useLoaderData<IndexLoaderResponse>();
   const isSuperBowl = games.length === 1;
+  const superbowlStarted = isSuperBowl && games[0] && hasGameStarted(games[0]);
 
   return (
     <Layout user={user}>
@@ -117,7 +119,7 @@ export default function Index() {
           {isSuperBowl ? (
             <TieBreakerCard
               userTieBreaker={userTieBreaker}
-              superbowlStarted={hasGameStarted(games[0])}
+              superbowlStarted={superbowlStarted}
             />
           ) : null}
           {games.map((game) => {
