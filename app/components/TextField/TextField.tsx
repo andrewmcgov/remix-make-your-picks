@@ -5,6 +5,7 @@ export interface TextFieldProps {
   defaultValue?: string;
   error?: string;
   pattern?: string;
+  min?: string;
 }
 
 export function TextField({
@@ -14,6 +15,7 @@ export function TextField({
   defaultValue,
   error,
   pattern,
+  min,
 }: TextFieldProps) {
   return (
     <div className="TextField">
@@ -24,6 +26,7 @@ export function TextField({
           name={name}
           defaultValue={defaultValue}
           pattern={pattern}
+          min={min}
         />
       </label>
       {error && <p className="TextField--error">{error}</p>}

@@ -19,6 +19,12 @@ async function deleteAllGames() {
   console.log('Deleted all games');
 }
 
+async function deleteAllLeaderboards() {
+  console.log('Deleting all leaderboards...');
+  await db.leaderboardEntry.deleteMany({});
+  console.log('Deleted all leaderboards');
+}
+
 async function deleteAllUsers() {
   console.log('Deleting all users...');
   await db.user.deleteMany({});
@@ -44,6 +50,7 @@ async function deleteAllUsers() {
 
   await deleteAllPicks();
   await deleteAllGames();
+  await deleteAllLeaderboards();
   await deleteAllUsers();
   console.log('Done!');
 })();

@@ -1,5 +1,6 @@
 import {User} from '@prisma/client';
 import {db} from './db.server';
+import {hasGameStarted} from './games';
 import {defaultSeason} from './static-data';
 import {Errors, SafeUser, PickWithGame} from './types';
 import {isAdmin} from './user';
@@ -128,16 +129,78 @@ export async function getLeaderboard(season: string = defaultSeason) {
     include: {user: {select: {id: true, username: true}}},
   });
 
+  const tieBreakers = await db.tieBreaker.findMany({
+    where: {season},
+    include: {user: {select: {id: true, username: true}}},
+  });
+
+  const superbowl = await db.game.findFirst({
+    where: {season, week: 'SB'},
+  });
+
+  const superbowlClosed =
+    typeof superbowl?.homeScore === 'number' &&
+    typeof superbowl?.awayScore === 'number';
+  const superbowlStarted = superbowl && hasGameStarted(superbowl);
+  console.log({superbowlStarted, superbowlClosed});
+
   // Filter out test user in prod
   if (process.env.NODE_ENV !== 'development') {
     leaderboard = leaderboard.filter((entry) => entry.userId !== 1);
   }
 
   return leaderboard
-    .map((entry) => ({
-      ...entry,
-      total:
-        entry.wildcard + entry.division + entry.conference + entry.superbowl,
-    }))
-    .sort((a, b) => b.total - a.total);
+    .map((entry) => {
+      const tieBreakerValue = superbowlStarted
+        ? tieBreakers.find((tieBreaker) => tieBreaker.userId === entry.userId)
+            ?.value
+        : undefined;
+
+      const diff =
+        tieBreakerValue &&
+        // Would just use superbowlClosed here, but TS doesn't like it
+        typeof superbowl?.homeScore === 'number' &&
+        typeof superbowl?.awayScore === 'number'
+          ? tieBreakerValue - (superbowl.homeScore + superbowl.awayScore)
+          : undefined;
+      return {
+        ...entry,
+        total:
+          entry.wildcard + entry.division + entry.conference + entry.superbowl,
+        diff: superbowlStarted ? diff : undefined,
+        tieBreaker: superbowlStarted ? tieBreakerValue : undefined,
+      };
+    })
+    .sort((a, b) => {
+      if (superbowlClosed && a.total === b.total) {
+        const diffA = a.diff;
+        const diffB = b.diff;
+
+        if (diffA === undefined && diffB === undefined) {
+          return b.total - a.total;
+        }
+
+        if (diffA === undefined) {
+          return 1;
+        }
+
+        if (diffB === undefined) {
+          return -1;
+        }
+
+        if (diffA === diffB) {
+          return 0;
+        }
+
+        // If guesses are the same distance from the total score eg: -5 ,+5,
+        // favor the one that did not guess the over
+        if (Math.abs(diffA) === Math.abs(diffB)) {
+          return diffA > diffB ? 1 : -1;
+        }
+
+        return Math.abs(diffA) - Math.abs(diffB);
+      }
+
+      return b.total - a.total;
+    });
 }

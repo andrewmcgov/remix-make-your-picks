@@ -229,17 +229,26 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
     })
   );
 
-  console.log('Creating leaderboards...');
+  console.log('Creating leaderboards and tiebreakers...');
   await Promise.all(
     SEASONS.map(async (season) => {
       Promise.all(
         allUsers.map(async (user) => {
-          updateLeaderboardEntryForUser(user, season);
+          Promise.all([
+            db.tieBreaker.create({
+              data: {
+                season,
+                userId: user.id,
+                value: faker.datatype.number({min: 10, max: 90}),
+              },
+            }),
+            updateLeaderboardEntryForUser(user, season),
+          ]);
         })
       );
     })
   );
-  console.log('Leaderboards created!');
+  console.log('Leaderboards and tiebreakers created!');
 
   console.log('DB seeded with teams, users, games, picks, and leaderboards!');
 })();

@@ -1,4 +1,4 @@
-import {MetaFunction, LoaderFunction} from '@remix-run/node';
+import {MetaFunction, LoaderFunction, ActionFunction} from '@remix-run/node';
 import {useLoaderData} from '@remix-run/react';
 import {currentUser} from '~/utilities/user.server';
 import {Layout} from '~/components/Layout';
@@ -8,6 +8,8 @@ import {GameCard} from '~/components/GameCard';
 import {GameFilter} from '~/components/GameFilter';
 import {hasGameStarted} from '~/utilities/games';
 import {gameFilters} from '~/utilities/games.server';
+import {TieBreakerCard} from '~/components/TieBreakerCard';
+import {createOrUpdateTiebreaker} from './tiebreaker.server';
 
 // https://remix.run/api/conventions#meta
 export const meta: MetaFunction = () => {
@@ -20,6 +22,7 @@ export const meta: MetaFunction = () => {
 interface IndexLoaderResponse {
   user: SafeUser | null;
   games: IndexGame[];
+  userTieBreaker?: number;
 }
 
 export let loader: LoaderFunction = async ({request}) => {
@@ -38,6 +41,20 @@ export let loader: LoaderFunction = async ({request}) => {
     },
   });
 
+  const tieBreakers =
+    week === 'SB'
+      ? await db.tieBreaker.findMany({
+          where: {
+            season,
+          },
+          include: {
+            user: {select: {id: true}},
+          },
+        })
+      : null;
+
+  const hasSuperBowlStarted = week === 'SB' && hasGameStarted(games[0]);
+
   games = user
     ? games.map((game) => {
         const gameStarted = hasGameStarted(game);
@@ -46,12 +63,28 @@ export let loader: LoaderFunction = async ({request}) => {
           homePickUsernames: gameStarted
             ? game.picks
                 .filter((pick) => game.homeId === pick.teamId)
-                .map((pick) => pick.user.username)
+                .map((pick) => {
+                  const tieBreaker =
+                    hasSuperBowlStarted &&
+                    tieBreakers?.find((tb) => tb.userId === pick.userId);
+
+                  return tieBreaker
+                    ? `${pick.user.username} (${tieBreaker.value})`
+                    : pick.user.username;
+                })
             : [],
           awayPickUsernames: gameStarted
             ? game.picks
                 .filter((pick) => game.awayId === pick.teamId)
-                .map((pick) => pick.user.username)
+                .map((pick) => {
+                  const tieBreaker =
+                    hasSuperBowlStarted &&
+                    tieBreakers?.find((tb) => tb.userId === pick.userId);
+
+                  return tieBreaker
+                    ? `${pick.user.username} (${tieBreaker.value})`
+                    : pick.user.username;
+                })
             : [],
           picks: [],
           userPick: game.picks.find((pick) => pick.userId === user?.id),
@@ -59,12 +92,19 @@ export let loader: LoaderFunction = async ({request}) => {
       })
     : games;
 
-  return {user, games};
+  return {
+    user,
+    games,
+    userTieBreaker: tieBreakers?.find((tb) => tb.userId === user?.id)?.value,
+  };
 };
 
-// https://remix.run/guides/routing#index-routes
+export const action: ActionFunction = ({request}) => {
+  return createOrUpdateTiebreaker(request);
+};
+
 export default function Index() {
-  const {user, games} = useLoaderData<IndexLoaderResponse>();
+  const {user, games, userTieBreaker} = useLoaderData<IndexLoaderResponse>();
   const isSuperBowl = games.length === 1;
 
   return (
@@ -74,6 +114,12 @@ export default function Index() {
         <div
           className={`game-list ${isSuperBowl ? 'game-list-superbowl' : ''}`}
         >
+          {isSuperBowl ? (
+            <TieBreakerCard
+              userTieBreaker={userTieBreaker}
+              superbowlStarted={hasGameStarted(games[0])}
+            />
+          ) : null}
           {games.map((game) => {
             return <GameCard key={game.id} game={game} user={user} />;
           })}
