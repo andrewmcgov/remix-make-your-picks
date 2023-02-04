@@ -508,6 +508,14 @@ table a {
   grid-row-gap: 0px;
 }
 
+.game-list-superbowl {
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+.game-list-superbowl .GameCard {
+  grid-column: 2;
+}
+
 @media screen and (max-width: 500px) {
   .game-list {
     display: block;

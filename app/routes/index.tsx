@@ -65,12 +65,15 @@ export let loader: LoaderFunction = async ({request}) => {
 // https://remix.run/guides/routing#index-routes
 export default function Index() {
   const {user, games} = useLoaderData<IndexLoaderResponse>();
+  const isSuperBowl = games.length === 1;
 
   return (
     <Layout user={user}>
       <GameFilter />
       {games.length > 0 ? (
-        <div className="game-list">
+        <div
+          className={`game-list ${isSuperBowl ? 'game-list-superbowl' : ''}`}
+        >
           {games.map((game) => {
             return <GameCard key={game.id} game={game} user={user} />;
           })}
