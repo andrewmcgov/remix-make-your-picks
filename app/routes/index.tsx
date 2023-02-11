@@ -10,8 +10,8 @@ import {hasGameStarted} from '~/utilities/games';
 import {gameFilters} from '~/utilities/games.server';
 import {TieBreakerCard} from '~/components/TieBreakerCard';
 import {createOrUpdateTiebreaker} from './tiebreaker.server';
+import {Confetti} from '~/components/Confetti';
 
-// https://remix.run/api/conventions#meta
 export const meta: MetaFunction = () => {
   return {
     title: 'Make your picks',
@@ -108,6 +108,17 @@ export default function Index() {
   const {user, games, userTieBreaker} = useLoaderData<IndexLoaderResponse>();
   const isSuperBowl = games.length === 1;
   const superbowlStarted = isSuperBowl && games[0] && hasGameStarted(games[0]);
+  const superbowlEnded =
+    isSuperBowl &&
+    games[0] &&
+    games[0].homeScore !== null &&
+    games[0].awayScore !== null;
+  const homeWinsSuperBowl =
+    isSuperBowl &&
+    games[0] &&
+    games[0].homeScore !== null &&
+    games[0].awayScore !== null &&
+    games[0].homeScore > games[0].awayScore;
 
   return (
     <Layout user={user}>
@@ -133,6 +144,7 @@ export default function Index() {
           </p>
         </div>
       )}
+      {superbowlEnded ? <Confetti homeWins={homeWinsSuperBowl} /> : null}
     </Layout>
   );
 }
