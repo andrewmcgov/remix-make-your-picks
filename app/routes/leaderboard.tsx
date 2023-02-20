@@ -9,7 +9,7 @@ import {currentUser} from '~/utilities/user.server';
 import {defaultSeason, seasonOptions} from '~/utilities/static-data';
 import {gameFilters} from '~/utilities/games.server';
 import {db} from '~/utilities/db.server';
-import {Confetti} from '~/components/Confetti';
+// import {Confetti} from '~/components/Confetti';
 
 interface LoaderResponse {
   user: SafeUser | null;
@@ -72,7 +72,7 @@ export default function Leaderboard() {
       <div className="card">
         <LeaderboardTable leaderboard={leaderboard} />
       </div>
-      {showConfetti && <Confetti homeWins={homeTeamWon} />}
+      {/* {showConfetti && <Confetti homeWins={homeTeamWon} />} */}
     </Layout>
   );
 }
