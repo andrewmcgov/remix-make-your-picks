@@ -13,6 +13,7 @@ import {
   weekOptions2020,
   weekOptions2021,
   weekOptions2022,
+  weekOptions2023,
 } from '~/utilities/static-data';
 import {Select} from '~/components/Select';
 
@@ -22,8 +23,10 @@ function getWeekOptions(season: string) {
       return weekOptions2020;
     case '2021':
       return weekOptions2021;
-    default:
+    case '2022':
       return weekOptions2022;
+    default:
+      return weekOptions2023;
   }
 }
 
