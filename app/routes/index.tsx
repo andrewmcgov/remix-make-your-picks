@@ -120,6 +120,8 @@ export default function Index() {
     games[0].awayScore !== null &&
     games[0].homeScore > games[0].awayScore;
 
+  console.log('test');
+
   return (
     <Layout user={user}>
       <GameFilter />
