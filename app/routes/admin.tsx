@@ -1,4 +1,8 @@
-import {LoaderFunction, redirect, MetaFunction} from '@remix-run/node';
+import {
+  LoaderFunction,
+  redirect,
+  V2_MetaFunction as MetaFunction,
+} from '@remix-run/node';
 import {useLoaderData, Link} from '@remix-run/react';
 import {SafeUser, AdminGame} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
@@ -17,10 +21,12 @@ interface LoaderResponse {
 }
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Admin | Make your picks',
-    description: 'NFL playoff picks',
-  };
+  return [
+    {
+      title: 'Admin | Make your picks',
+    },
+    {name: 'description', content: 'NFL playoff picks'},
+  ];
 };
 
 export let loader: LoaderFunction = async ({request}) => {

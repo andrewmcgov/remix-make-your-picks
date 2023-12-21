@@ -2,7 +2,7 @@ import {useLoaderData, Link} from '@remix-run/react';
 import {
   redirect,
   LoaderFunction,
-  MetaFunction,
+  V2_MetaFunction as MetaFunction,
   ActionFunction,
 } from '@remix-run/node';
 import {SafeUser, AdminGame, Option, Errors} from '~/utilities/types';
@@ -22,10 +22,12 @@ interface LoaderResponse {
 }
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Admin game | Make your picks',
-    description: 'NFL playoff picks',
-  };
+  return [
+    {
+      title: 'Admin game | Make your picks',
+    },
+    {name: 'description', content: 'NFL playoff picks'},
+  ];
 };
 
 export let loader: LoaderFunction = async ({request, params}) => {

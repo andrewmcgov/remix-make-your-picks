@@ -1,4 +1,4 @@
-import {ActionFunction, MetaFunction} from '@remix-run/node';
+import {ActionFunction, V2_MetaFunction as MetaFunction} from '@remix-run/node';
 import {Form, useActionData, useTransition, Link} from '@remix-run/react';
 
 import {TextField} from '~/components/TextField';
@@ -12,10 +12,12 @@ interface ActionResponse {
 }
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Request password reset | Make your picks',
-    description: 'NFL playoff picks',
-  };
+  return [
+    {
+      title: 'Request password reset | Make your picks',
+    },
+    {name: 'description', content: 'NFL playoff picks'},
+  ];
 };
 
 export const action: ActionFunction = async ({request}) => {

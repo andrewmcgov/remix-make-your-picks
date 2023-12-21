@@ -7,4 +7,9 @@ module.exports = {
   publicPath: '/build/',
   serverBuildDirectory: 'api/_build',
   ignoredRouteFiles: ['.*'],
+  future: {
+    v2_errorBoundary: true,
+    v2_normalizeFormMethod: true,
+    v2_meta: true,
+  },
 };

@@ -1,4 +1,8 @@
-import {MetaFunction, LoaderFunction, ActionFunction} from '@remix-run/node';
+import {
+  V2_MetaFunction as MetaFunction,
+  LoaderFunction,
+  ActionFunction,
+} from '@remix-run/node';
 import {useLoaderData} from '@remix-run/react';
 import {currentUser} from '~/utilities/user.server';
 import {Layout} from '~/components/Layout';
@@ -13,10 +17,12 @@ import {createOrUpdateTiebreaker} from './tiebreaker.server';
 // import {Confetti} from '~/components/Confetti';
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Make your picks',
-    description: 'NFL playoff picks',
-  };
+  return [
+    {
+      title: 'Make your picks',
+    },
+    {name: 'description', content: 'NFL playoff picks'},
+  ];
 };
 
 interface IndexLoaderResponse {
