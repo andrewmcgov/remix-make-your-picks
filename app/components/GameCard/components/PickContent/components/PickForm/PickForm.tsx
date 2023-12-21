@@ -1,4 +1,4 @@
-import {Form, useTransition} from '@remix-run/react';
+import {Form, useNavigation} from '@remix-run/react';
 import {IndexGame} from '~/utilities/types';
 
 export interface PickFormProps {
@@ -7,7 +7,9 @@ export interface PickFormProps {
 }
 
 export function PickForm({game, onSubmit}: PickFormProps) {
-  const transition = useTransition();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
+
   return (
     <div className="PickForm">
       <Form
@@ -15,11 +17,7 @@ export function PickForm({game, onSubmit}: PickFormProps) {
         action={`/pick?game=${game.id}&team=${game.away.id}`}
         onSubmit={onSubmit}
       >
-        <button
-          type="submit"
-          className="secondary"
-          disabled={Boolean(transition.submission)}
-        >
+        <button type="submit" className="secondary" disabled={isSubmitting}>
           {game.away.nickName}
         </button>
       </Form>
@@ -28,11 +26,7 @@ export function PickForm({game, onSubmit}: PickFormProps) {
         action={`/pick?game=${game.id}&team=${game.home.id}`}
         onSubmit={onSubmit}
       >
-        <button
-          type="submit"
-          className="secondary"
-          disabled={Boolean(transition.submission)}
-        >
+        <button type="submit" className="secondary" disabled={isSubmitting}>
           {game.home.nickName}
         </button>
       </Form>

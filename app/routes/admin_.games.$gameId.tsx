@@ -1,8 +1,8 @@
-import {useLoaderData, Link, Form, useTransition} from '@remix-run/react';
+import {useLoaderData, Link, Form, useNavigation} from '@remix-run/react';
 import {
   LoaderFunction,
   redirect,
-  V2_MetaFunction as MetaFunction,
+  MetaFunction,
   ActionFunction,
 } from '@remix-run/node';
 
@@ -138,7 +138,8 @@ export const action: ActionFunction = async ({request, params}) => {
 
 export default function AdminGame() {
   const {game, user} = useLoaderData<LoaderResponse>();
-  const transition = useTransition();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
 
   return (
     <Layout user={user}>
@@ -168,8 +169,8 @@ export default function AdminGame() {
               />
             </div>
             <div className="button-group">
-              <button type="submit" disabled={Boolean(transition.submission)}>
-                {transition.submission ? 'Closing game...' : 'Close game'}
+              <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Closing game...' : 'Close game'}
               </button>
             </div>
           </div>

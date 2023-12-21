@@ -2,7 +2,7 @@ import {
   Form,
   useActionData,
   useLoaderData,
-  useTransition,
+  useNavigation,
 } from '@remix-run/react';
 import {ActionFunction, LoaderFunction, redirect} from '@remix-run/node';
 import {Layout} from '~/components/Layout';
@@ -51,17 +51,16 @@ export let loader: LoaderFunction = async ({request}) => {
 
 export default function Account() {
   const {user} = useLoaderData<LoaderResponse>();
-  const transition = useTransition();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
   const actionData = useActionData<ActionResponse>();
 
   return (
     <Layout user={user}>
       <h1>Update leaderboard</h1>
       <Form method="post">
-        <button type="submit" disabled={Boolean(transition.submission)}>
-          {transition.submission
-            ? 'Updating leaderboard...'
-            : 'Update leaderboard'}
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Updating leaderboard...' : 'Update leaderboard'}
         </button>
         {actionData?.errors?.message && <p>{actionData.errors.message}</p>}
       </Form>

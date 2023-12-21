@@ -1,7 +1,7 @@
 import {
   LoaderFunction,
   redirect,
-  V2_MetaFunction as MetaFunction,
+  MetaFunction,
   ActionFunction,
 } from '@remix-run/node';
 import {useLoaderData} from '@remix-run/react';

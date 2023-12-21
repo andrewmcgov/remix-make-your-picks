@@ -1,8 +1,4 @@
-import {
-  LoaderFunction,
-  redirect,
-  V2_MetaFunction as MetaFunction,
-} from '@remix-run/node';
+import {LoaderFunction, redirect, MetaFunction} from '@remix-run/node';
 import {useLoaderData, Link} from '@remix-run/react';
 import {SafeUser, AdminGame} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';

@@ -1,5 +1,5 @@
-import {ActionFunction, V2_MetaFunction as MetaFunction} from '@remix-run/node';
-import {Form, useActionData, useTransition, Link} from '@remix-run/react';
+import {ActionFunction, MetaFunction} from '@remix-run/node';
+import {Form, useActionData, useNavigation, Link} from '@remix-run/react';
 
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';
@@ -26,7 +26,8 @@ export const action: ActionFunction = async ({request}) => {
 
 export default function RequestReset() {
   const actionData = useActionData<ActionResponse>();
-  const transition = useTransition();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
   const errors = actionData?.errors;
   const success = actionData?.success;
 
@@ -56,10 +57,8 @@ export default function RequestReset() {
               />
             </div>
             <div className="button-group">
-              <button type="submit" disabled={Boolean(transition.submission)}>
-                {transition.submission
-                  ? 'Requesting reset...'
-                  : 'Reset password'}
+              <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Requesting reset...' : 'Reset password'}
               </button>
             </div>
           </div>

@@ -1,4 +1,4 @@
-import {Form, useTransition, useActionData} from '@remix-run/react';
+import {Form, useNavigation, useActionData} from '@remix-run/react';
 import {TextField} from '../TextField';
 import {Errors} from '~/utilities/types';
 
@@ -16,7 +16,8 @@ export function TieBreakerCard({
   superbowlStarted,
 }: TieBreakerCardProps) {
   const actionData = useActionData<ActionResponse>();
-  const transition = useTransition();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
   const errors = actionData?.errors;
 
   return (
@@ -47,8 +48,8 @@ export function TieBreakerCard({
               error={errors?.value}
               defaultValue={userTieBreaker?.toString()}
             />
-            <button type="submit" disabled={Boolean(transition.submission)}>
-              {transition.submission ? 'Submitting...' : 'Submit'}
+            <button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Submitting...' : 'Submit'}
             </button>
           </div>
           {errors?.message ? (

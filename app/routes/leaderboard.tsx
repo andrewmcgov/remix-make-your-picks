@@ -1,4 +1,4 @@
-import {V2_MetaFunction as MetaFunction, LoaderFunction} from '@remix-run/node';
+import {MetaFunction, LoaderFunction} from '@remix-run/node';
 import {useLoaderData, useSubmit, Form} from '@remix-run/react';
 import {Layout} from '~/components/Layout';
 import {Select} from '~/components/Select';
