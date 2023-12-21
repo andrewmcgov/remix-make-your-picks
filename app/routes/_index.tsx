@@ -1,8 +1,4 @@
-import {
-  V2_MetaFunction as MetaFunction,
-  LoaderFunction,
-  ActionFunction,
-} from '@remix-run/node';
+import {MetaFunction, LoaderFunction, ActionFunction} from '@remix-run/node';
 import {useLoaderData} from '@remix-run/react';
 import {currentUser} from '~/utilities/user.server';
 import {Layout} from '~/components/Layout';

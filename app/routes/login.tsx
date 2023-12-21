@@ -1,5 +1,5 @@
-import {Form, useActionData, useTransition, Link} from '@remix-run/react';
-import {ActionFunction, V2_MetaFunction as MetaFunction} from '@remix-run/node';
+import {Form, useActionData, useNavigation, Link} from '@remix-run/react';
+import {ActionFunction, MetaFunction} from '@remix-run/node';
 
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';
@@ -25,7 +25,8 @@ export const action: ActionFunction = async ({request}) => {
 
 export default function LogIn() {
   const actionData = useActionData<ActionResponse>();
-  const transition = useTransition();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
   const errors = actionData?.errors;
 
   return (
@@ -49,8 +50,8 @@ export default function LogIn() {
               />
             </div>
             <div className="button-group">
-              <button type="submit" disabled={Boolean(transition.submission)}>
-                {transition.submission ? 'Logging in...' : 'Log in'}
+              <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Logging in...' : 'Log in'}
               </button>
             </div>
           </div>

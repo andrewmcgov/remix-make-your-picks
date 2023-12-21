@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Form, useActionData, useTransition} from '@remix-run/react';
+import {Form, useActionData, useNavigation} from '@remix-run/react';
 import {
   defaultSeason,
   seasonOptions,
@@ -34,7 +34,8 @@ function asTwoDigitValue(value: number) {
 
 export function GameForm({game, teamOptions}: GameFormProps) {
   const actionData = useActionData<ActionResponse>();
-  const transition = useTransition();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
   const dateTimeValues = getDateTimeValues(
     game ? new Date(game.start) : new Date()
   );
@@ -117,8 +118,8 @@ export function GameForm({game, teamOptions}: GameFormProps) {
               />
             </div>
             <div className="button-group">
-              <button type="submit" disabled={Boolean(transition.submission)}>
-                {transition.submission ? 'Saving...' : saveButtonText}
+              <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Saving...' : saveButtonText}
               </button>
             </div>
             {actionData?.errors?.message && (

@@ -1,15 +1,11 @@
 import {
   Form,
   useActionData,
-  useTransition,
+  useNavigation,
   Link,
   useLoaderData,
 } from '@remix-run/react';
-import {
-  ActionFunction,
-  V2_MetaFunction as MetaFunction,
-  LoaderFunction,
-} from '@remix-run/node';
+import {ActionFunction, MetaFunction, LoaderFunction} from '@remix-run/node';
 
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';
@@ -56,7 +52,8 @@ export const action: ActionFunction = async ({request, params}) => {
 export default function RequestReset() {
   const loaderData = useLoaderData<{valid: boolean}>();
   const actionData = useActionData<ActionResponse>();
-  const transition = useTransition();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
   const errors = actionData?.errors;
 
   if (!loaderData.valid) {
@@ -98,10 +95,8 @@ export default function RequestReset() {
               />
             </div>
             <div className="button-group">
-              <button type="submit" disabled={Boolean(transition.submission)}>
-                {transition.submission
-                  ? 'Resetting password...'
-                  : 'Reset password'}
+              <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Resetting password...' : 'Reset password'}
               </button>
             </div>
           </div>

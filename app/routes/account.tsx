@@ -2,12 +2,12 @@ import {
   useLoaderData,
   useActionData,
   Form,
-  useTransition,
+  useNavigation,
 } from '@remix-run/react';
 import {
   LoaderFunction,
   redirect,
-  V2_MetaFunction as MetaFunction,
+  MetaFunction,
   ActionFunction,
 } from '@remix-run/node';
 import {SafeUser} from '~/utilities/types';
@@ -52,17 +52,16 @@ export default function Account() {
   const actionData = useActionData<ActionResponse>();
   const errors = actionData?.errors;
 
-  const transition = useTransition();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === 'submitting';
 
   return (
     <Layout user={user}>
       <div className="HeadingWithAction">
         <h1>Account</h1>
         <Form method="post" action="/logout">
-          <button type="submit" disabled={Boolean(transition.submission)}>
-            {transition.submission?.action === '/logout'
-              ? 'Logging out'
-              : 'Log out'}
+          <button type="submit" disabled={isSubmitting}>
+            {navigation.formAction === '/logout' ? 'Logging out' : 'Log out'}
           </button>
         </Form>
       </div>
@@ -88,8 +87,8 @@ export default function Account() {
               />
             </div>
             <div className="button-group">
-              <button type="submit" disabled={Boolean(transition.submission)}>
-                {transition.submission ? 'Saving...' : 'Save'}
+              <button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? 'Saving...' : 'Save'}
               </button>
             </div>
           </div>
