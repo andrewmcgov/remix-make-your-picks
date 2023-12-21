@@ -1,5 +1,5 @@
 import {useActionData, useTransition, Form, Link} from '@remix-run/react';
-import {ActionFunction, MetaFunction} from '@remix-run/node';
+import {ActionFunction, V2_MetaFunction as MetaFunction} from '@remix-run/node';
 import {signUp} from '~/utilities/user.server';
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';
@@ -10,10 +10,12 @@ interface ActionResponse {
 }
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Sign up | Make your picks',
-    description: 'NFL playoff picks',
-  };
+  return [
+    {
+      title: 'Sign up | Make your picks',
+    },
+    {name: 'description', content: 'NFL playoff picks'},
+  ];
 };
 
 export const action: ActionFunction = async ({request}) => {

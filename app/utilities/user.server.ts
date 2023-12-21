@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import {redirect} from 'remix';
+import {redirect} from '@remix-run/node';
 import {db} from '../utilities/db.server';
 import {userCookie} from '../cookies';
 import {Errors, SafeUser} from './types';

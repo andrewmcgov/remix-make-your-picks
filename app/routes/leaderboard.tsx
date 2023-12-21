@@ -1,4 +1,4 @@
-import {MetaFunction, LoaderFunction} from '@remix-run/node';
+import {V2_MetaFunction as MetaFunction, LoaderFunction} from '@remix-run/node';
 import {useLoaderData, useSubmit, Form} from '@remix-run/react';
 import {Layout} from '~/components/Layout';
 import {Select} from '~/components/Select';
@@ -19,10 +19,11 @@ interface LoaderResponse {
 }
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Leaderboard | Make your picks',
-    description: 'NFL playoff picks',
-  };
+  return [
+    {
+      title: 'Leaderboard | Make your picks',
+    },
+  ];
 };
 
 export let loader: LoaderFunction = async ({request}) => {

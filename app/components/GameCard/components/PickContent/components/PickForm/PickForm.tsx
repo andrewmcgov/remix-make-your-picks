@@ -12,7 +12,7 @@ export function PickForm({game, onSubmit}: PickFormProps) {
     <div className="PickForm">
       <Form
         method="post"
-        action={`/resources/pick?game=${game.id}&team=${game.away.id}`}
+        action={`/pick?game=${game.id}&team=${game.away.id}`}
         onSubmit={onSubmit}
       >
         <button
@@ -25,7 +25,7 @@ export function PickForm({game, onSubmit}: PickFormProps) {
       </Form>
       <Form
         method="post"
-        action={`/resources/pick?game=${game.id}&team=${game.home.id}`}
+        action={`/pick?game=${game.id}&team=${game.home.id}`}
         onSubmit={onSubmit}
       >
         <button

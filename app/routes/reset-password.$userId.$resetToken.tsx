@@ -5,7 +5,11 @@ import {
   Link,
   useLoaderData,
 } from '@remix-run/react';
-import {ActionFunction, MetaFunction, LoaderFunction} from '@remix-run/node';
+import {
+  ActionFunction,
+  V2_MetaFunction as MetaFunction,
+  LoaderFunction,
+} from '@remix-run/node';
 
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';
@@ -19,10 +23,12 @@ interface ActionResponse {
 }
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Reset password | Make your picks',
-    description: 'NFL playoff picks',
-  };
+  return [
+    {
+      title: 'Reset password | Make your picks',
+    },
+    {name: 'description', content: 'NFL playoff picks'},
+  ];
 };
 
 export const loader: LoaderFunction = async ({params}) => {

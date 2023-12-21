@@ -7,7 +7,7 @@ import {
 import {
   LoaderFunction,
   redirect,
-  MetaFunction,
+  V2_MetaFunction as MetaFunction,
   ActionFunction,
 } from '@remix-run/node';
 import {SafeUser} from '~/utilities/types';
@@ -25,10 +25,12 @@ interface ActionResponse {
 }
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Account | Make your picks',
-    description: 'NFL playoff picks',
-  };
+  return [
+    {
+      title: 'Account | Make your picks',
+    },
+    {name: 'description', content: 'NFL playoff picks'},
+  ];
 };
 
 export const loader: LoaderFunction = async ({request}) => {

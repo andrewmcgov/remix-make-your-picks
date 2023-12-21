@@ -2,10 +2,15 @@ import {useLoaderData, Link} from '@remix-run/react';
 import {
   redirect,
   LoaderFunction,
-  MetaFunction,
+  V2_MetaFunction as MetaFunction,
   ActionFunction,
 } from '@remix-run/node';
-import {SafeUser, AdminGame, Option, Errors} from '~/utilities/types';
+import {
+  SafeUser,
+  AdminGame as AdminGameType,
+  Option,
+  Errors,
+} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 import {db} from '~/utilities/db.server';
 import {Layout} from '~/components/Layout';
@@ -17,15 +22,17 @@ import {defaultSeason, defaultWeek} from '~/utilities/static-data';
 
 interface LoaderResponse {
   user: SafeUser;
-  game: AdminGame;
+  game: AdminGameType;
   teamOptions: Option[];
 }
 
 export const meta: MetaFunction = () => {
-  return {
-    title: 'Admin game | Make your picks',
-    description: 'NFL playoff picks',
-  };
+  return [
+    {
+      title: 'Admin game | Make your picks',
+    },
+    {name: 'description', content: 'NFL playoff picks'},
+  ];
 };
 
 export let loader: LoaderFunction = async ({request, params}) => {
