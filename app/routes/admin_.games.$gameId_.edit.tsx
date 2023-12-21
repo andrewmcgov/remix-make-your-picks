@@ -5,7 +5,12 @@ import {
   V2_MetaFunction as MetaFunction,
   ActionFunction,
 } from '@remix-run/node';
-import {SafeUser, AdminGame, Option, Errors} from '~/utilities/types';
+import {
+  SafeUser,
+  AdminGame as AdminGameType,
+  Option,
+  Errors,
+} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 import {db} from '~/utilities/db.server';
 import {Layout} from '~/components/Layout';
@@ -17,7 +22,7 @@ import {defaultSeason, defaultWeek} from '~/utilities/static-data';
 
 interface LoaderResponse {
   user: SafeUser;
-  game: AdminGame;
+  game: AdminGameType;
   teamOptions: Option[];
 }
 
