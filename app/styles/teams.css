@@ -148,6 +148,13 @@
   border-bottom: 5px solid #a5acaf;
 }
 
+/* Support both OAK and LV so it doesnt break when we change the name */
+.NFL-LV {
+  background: #000000;
+  color: #ffffff;
+  border-bottom: 5px solid #a5acaf;
+}
+
 .NFL-PHI {
   background: #004c54;
   color: #ffffff;
