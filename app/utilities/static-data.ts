@@ -1,4 +1,4 @@
-export const defaultWeek = '17';
+export const defaultWeek = '18';
 export const defaultSeason = '2023';
 
 export const seasonOptions = [
@@ -38,8 +38,6 @@ export const weekOptions2022 = [
 ];
 
 export const weekOptions2023 = [
-  {value: '16', label: 'Week 16'},
-  {value: '17', label: 'Week 17'},
   {value: '18', label: 'Week 18'},
   {value: 'WC', label: 'Wildcard Weekend'},
   {value: 'DIV', label: 'Divisional Weekend'},
