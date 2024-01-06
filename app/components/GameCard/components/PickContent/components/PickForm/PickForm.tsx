@@ -16,6 +16,7 @@ export function PickForm({game, onSubmit}: PickFormProps) {
         method="post"
         action={`/pick?game=${game.id}&team=${game.away.id}`}
         onSubmit={onSubmit}
+        preventScrollReset
       >
         <button type="submit" className="secondary" disabled={isSubmitting}>
           {game.away.nickName}
@@ -25,6 +26,7 @@ export function PickForm({game, onSubmit}: PickFormProps) {
         method="post"
         action={`/pick?game=${game.id}&team=${game.home.id}`}
         onSubmit={onSubmit}
+        preventScrollReset
       >
         <button type="submit" className="secondary" disabled={isSubmitting}>
           {game.home.nickName}
