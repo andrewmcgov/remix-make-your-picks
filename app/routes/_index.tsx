@@ -41,6 +41,9 @@ export let loader: LoaderFunction = async ({request}) => {
       away: true,
       picks: {include: {team: true, user: {select: {username: true}}}},
     },
+    orderBy: {
+      start: 'asc',
+    },
   });
 
   const tieBreakers =

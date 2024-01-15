@@ -55,6 +55,9 @@ export let loader: LoaderFunction = async ({request}) => {
       away: true,
       picks: {select: {id: true, userId: true}},
     },
+    orderBy: {
+      start: 'asc',
+    },
   });
 
   const gamesWithStillToPickUsers = games.map((game) => {
