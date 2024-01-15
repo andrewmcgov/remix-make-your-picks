@@ -43,7 +43,7 @@ export function Layout({children, user}: LayoutProps) {
         </header>
         <main>{children}</main>
       </div>
-      <footer className="Footer">🧀🧀🧀</footer>
+      <footer className="Footer">🧀🧀🧀🧀🧀🧀</footer>
     </div>
   );
 }
