@@ -8,9 +8,10 @@ export interface ConfettiProps {
 export function Confetti({homeWins}: ConfettiProps) {
   const [height, setHeight] = useState<number>();
   const [width, setWidth] = useState<number>();
+  const [confettiStopped, setConfettiStopped] = useState(false);
+  const sanFranColors = ['#AA0000', '#B3995D', '#FFFFFF'];
   const chiefsColors = ['#E31837', '#FFB81C', '#FFFFFF'];
-  const eaglesColors = ['#004C54', '#A5ACAF', '#FFFFFF'];
-  const colors = homeWins ? eaglesColors : chiefsColors;
+  const colors = homeWins ? chiefsColors : sanFranColors;
 
   useEffect(() => {
     setHeight(window.innerHeight);
@@ -18,11 +19,23 @@ export function Confetti({homeWins}: ConfettiProps) {
   }, []);
 
   return width ? (
-    <ConfettiLib
-      height={height}
-      width={width}
-      colors={colors}
-      numberOfPieces={300}
-    />
+    <>
+      {confettiStopped ? null : (
+        <ConfettiLib
+          height={height}
+          width={width}
+          colors={colors}
+          numberOfPieces={300}
+        />
+      )}
+      <div className="ConfettiToggle">
+        <button
+          className="secondary"
+          onClick={() => setConfettiStopped(!confettiStopped)}
+        >
+          {confettiStopped ? 'Start confetti' : 'Stop confetti'}
+        </button>
+      </div>
+    </>
   ) : null;
 }

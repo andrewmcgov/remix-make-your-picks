@@ -9,7 +9,7 @@ import {currentUser} from '~/utilities/user.server';
 import {defaultSeason, seasonOptions} from '~/utilities/static-data';
 import {gameFilters} from '~/utilities/games.server';
 import {db} from '~/utilities/db.server';
-// import {Confetti} from '~/components/Confetti';
+import {Confetti} from '~/components/Confetti';
 
 interface LoaderResponse {
   user: SafeUser | null;
@@ -38,10 +38,17 @@ export let loader: LoaderFunction = async ({request}) => {
     },
   });
 
-  const showConfetti = superBowl?.homeScore && superBowl?.awayScore;
+  const showConfetti =
+    superBowl &&
+    superBowl.homeScore !== null &&
+    superBowl &&
+    superBowl.awayScore !== null;
+
   const homeTeamWon =
-    superBowl?.homeScore &&
-    superBowl?.awayScore &&
+    superBowl &&
+    superBowl.homeScore !== null &&
+    superBowl &&
+    superBowl.awayScore !== null &&
     superBowl.homeScore > superBowl.awayScore;
 
   return {user, leaderboard, showConfetti, homeTeamWon};
@@ -73,7 +80,7 @@ export default function Leaderboard() {
       <div className="card">
         <LeaderboardTable leaderboard={leaderboard} />
       </div>
-      {/* {showConfetti && <Confetti homeWins={homeTeamWon} />} */}
+      {showConfetti && <Confetti homeWins={homeTeamWon} />}
     </Layout>
   );
 }
