@@ -1,4 +1,8 @@
-import {MetaFunction, LoaderFunction, ActionFunction} from '@remix-run/node';
+import {
+  MetaFunction,
+  ActionFunction,
+  LoaderFunctionArgs,
+} from '@remix-run/node';
 import {useLoaderData} from '@remix-run/react';
 import {currentUser} from '~/utilities/user.server';
 import {Layout} from '~/components/Layout';
@@ -10,7 +14,7 @@ import {hasGameStarted} from '~/utilities/games';
 import {gameFilters} from '~/utilities/games.server';
 import {TieBreakerCard} from '~/components/TieBreakerCard';
 import {createOrUpdateTiebreaker} from './tiebreaker.server';
-// import {Confetti} from '~/components/Confetti';
+import {Confetti} from '~/components/Confetti';
 
 export const meta: MetaFunction = () => {
   return [
@@ -25,9 +29,12 @@ interface IndexLoaderResponse {
   user: SafeUser | null;
   games: IndexGame[];
   userTieBreaker?: number;
+  isSuperBowl?: boolean;
+  hasSuperBowlStarted?: boolean;
+  hasSuperBowlEnded?: boolean;
 }
 
-export let loader: LoaderFunction = async ({request}) => {
+export let loader = async ({request}: LoaderFunctionArgs) => {
   const user = await currentUser(request);
   const {week, season} = gameFilters(request);
 
@@ -58,8 +65,24 @@ export let loader: LoaderFunction = async ({request}) => {
         })
       : null;
 
+  const isSuperBowl = week === 'SB';
+
+  const firstGame = games[0];
+
   const hasSuperBowlStarted =
-    week === 'SB' && games[0] && hasGameStarted(games[0]);
+    isSuperBowl && firstGame && hasGameStarted(firstGame);
+
+  const hasSuperBowlEnded =
+    isSuperBowl &&
+    firstGame &&
+    firstGame.homeScore !== null &&
+    firstGame.awayScore !== null;
+
+  const homeWinsSuperBowl =
+    hasSuperBowlEnded &&
+    firstGame.homeScore !== null &&
+    firstGame.awayScore !== null &&
+    firstGame.homeScore > firstGame.awayScore;
 
   games = user
     ? games.map((game) => {
@@ -102,6 +125,10 @@ export let loader: LoaderFunction = async ({request}) => {
     user,
     games,
     userTieBreaker: tieBreakers?.find((tb) => tb.userId === user?.id)?.value,
+    isSuperBowl,
+    hasSuperBowlStarted,
+    hasSuperBowlEnded,
+    homeWinsSuperBowl,
   };
 };
 
@@ -110,22 +137,15 @@ export const action: ActionFunction = ({request}) => {
 };
 
 export default function Index() {
-  const {user, games, userTieBreaker} = useLoaderData<IndexLoaderResponse>();
-  const isSuperBowl = games.length === 1;
-  const superbowlStarted = isSuperBowl && games[0] && hasGameStarted(games[0]);
-  const superbowlEnded =
-    isSuperBowl &&
-    games[0] &&
-    games[0].homeScore !== null &&
-    games[0].awayScore !== null;
-  const homeWinsSuperBowl =
-    isSuperBowl &&
-    games[0] &&
-    games[0].homeScore !== null &&
-    games[0].awayScore !== null &&
-    games[0].homeScore > games[0].awayScore;
-
-  console.log('test');
+  const {
+    user,
+    games,
+    userTieBreaker,
+    isSuperBowl,
+    hasSuperBowlStarted,
+    hasSuperBowlEnded,
+    homeWinsSuperBowl,
+  } = useLoaderData<typeof loader>();
 
   return (
     <Layout user={user}>
@@ -137,7 +157,7 @@ export default function Index() {
           {isSuperBowl ? (
             <TieBreakerCard
               userTieBreaker={userTieBreaker}
-              superbowlStarted={superbowlStarted}
+              superbowlStarted={hasSuperBowlStarted}
             />
           ) : null}
           {games.map((game) => {
@@ -151,7 +171,7 @@ export default function Index() {
           </p>
         </div>
       )}
-      {/* {superbowlEnded ? <Confetti homeWins={homeWinsSuperBowl} /> : null} */}
+      {hasSuperBowlEnded ? <Confetti homeWins={homeWinsSuperBowl} /> : null}
     </Layout>
   );
 }

@@ -578,3 +578,11 @@ table a {
   scrollbar-width: thin; /* "auto" or "thin" */
   scrollbar-color: transparent transparent; /* scroll thumb and track */
 }
+
+.ConfettiToggle {
+  position: fixed;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
