@@ -171,7 +171,7 @@ export default function Index() {
           </p>
         </div>
       )}
-      {hasSuperBowlEnded ? <Confetti homeWins={homeWinsSuperBowl} /> : null}
+      {/* {hasSuperBowlEnded ? <Confetti homeWins={homeWinsSuperBowl} /> : null} */}
     </Layout>
   );
 }
