@@ -47,6 +47,7 @@ model Game {
   winnerId  Int?
   league    String
   week      String
+  isPlayoff Boolean  @default(false)
   season    String
   picks     Pick[]
 }
