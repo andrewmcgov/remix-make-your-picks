@@ -6,7 +6,7 @@ import {updateLeaderboardEntryForUser} from '../app/utilities/leaderboard.server
 
 const db = new PrismaClient();
 
-const SEASONS = ['2020', '2021', '2022'];
+const SEASONS = ['2020', '2021', '2022', '2023'];
 
 function shuffle(array: any[]) {
   array.sort(() => Math.random() - 0.5);
@@ -24,6 +24,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[2].id,
@@ -32,6 +33,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[4].id,
@@ -40,6 +42,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[6].id,
@@ -48,6 +51,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[8].id,
@@ -56,6 +60,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[10].id,
@@ -64,6 +69,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[0].id,
@@ -72,6 +78,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[2].id,
@@ -80,6 +87,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[4].id,
@@ -88,6 +96,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[6].id,
@@ -96,6 +105,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[7].id,
@@ -104,6 +114,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[12].id,
@@ -112,6 +123,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
     {
       homeId: teams[7].id,
@@ -120,6 +132,7 @@ function getGamesforSeason(season: string, allTeams: Team[]) {
       start: startTime,
       season,
       league: 'NFL',
+      isPlayoff: true,
     },
   ];
 }

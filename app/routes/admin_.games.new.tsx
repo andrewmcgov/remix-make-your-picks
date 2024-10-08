@@ -13,7 +13,7 @@ import {Layout} from '~/components/Layout';
 
 import {GameForm} from '~/components/GameForm';
 import {getTeamOptions} from '~/utilities/teams.server';
-import {getGameData} from '~/utilities/games.server';
+import {getGameData, PLAYOFF_WEEKS} from '~/utilities/games.server';
 
 interface LoaderResponse {
   user: SafeUser;
@@ -69,6 +69,7 @@ export const action: ActionFunction = async ({request}) => {
       league: 'NFL',
       week,
       season,
+      isPlayoff: PLAYOFF_WEEKS.includes(week),
     },
   });
 

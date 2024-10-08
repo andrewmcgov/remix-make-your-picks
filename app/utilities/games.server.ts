@@ -1,4 +1,5 @@
 import {defaultWeek, defaultSeason} from './static-data';
+export const PLAYOFF_WEEKS = ['WC', 'DIV', 'CC', 'SB'];
 
 export async function getGameData(request: Request) {
   const formData = await request.formData();
