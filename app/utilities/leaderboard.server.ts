@@ -56,9 +56,15 @@ export async function updateLeaderboardEntryForUser(
     superbowl: correctSuperbowlPicks.length * 5,
   };
 
+  const total =
+    updatedLeaderboardEntry.wildcard +
+    updatedLeaderboardEntry.division +
+    updatedLeaderboardEntry.conference +
+    updatedLeaderboardEntry.superbowl;
+
   return await db.leaderboardEntry.update({
     where: {id: leaderBoardEntry.id},
-    data: updatedLeaderboardEntry,
+    data: {...updatedLeaderboardEntry, total},
   });
 }
 
@@ -82,6 +88,7 @@ async function findOrCreateLeaderboardEntry(userId: number, season: string) {
       division: 0,
       conference: 0,
       superbowl: 0,
+      total: 0,
     },
   });
 }
@@ -165,8 +172,6 @@ export async function getLeaderboard(season: string = defaultSeason) {
           : undefined;
       return {
         ...entry,
-        total:
-          entry.wildcard + entry.division + entry.conference + entry.superbowl,
         diff: superbowlStarted ? diff : undefined,
         tieBreaker: superbowlStarted ? tieBreakerValue : undefined,
       };

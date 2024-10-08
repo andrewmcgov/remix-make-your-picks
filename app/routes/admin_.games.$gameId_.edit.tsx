@@ -17,8 +17,8 @@ import {Layout} from '~/components/Layout';
 import {GameForm} from '~/components/GameForm';
 import {getTeamOptions} from '~/utilities/teams.server';
 import {isAdmin} from '~/utilities/user';
-import {getGameData} from '~/utilities/games.server';
-import {defaultSeason, defaultWeek} from '~/utilities/static-data';
+import {getGameData, PLAYOFF_WEEKS} from '~/utilities/games.server';
+import {defaultSeason} from '~/utilities/static-data';
 
 interface LoaderResponse {
   user: SafeUser;
@@ -90,6 +90,7 @@ export const action: ActionFunction = async ({request, params}) => {
       league: 'NFL',
       week: week,
       season: season || defaultSeason,
+      isPlayoff: PLAYOFF_WEEKS.includes(week),
     },
   });
 
