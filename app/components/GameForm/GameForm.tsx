@@ -4,7 +4,7 @@ import {
   defaultSeason,
   seasonOptions,
   defaultWeek,
-  weekOptions2021,
+  weekOptions2024,
 } from '~/utilities/static-data';
 import {AdminGame, Option, Errors} from '~/utilities/types';
 import {Select} from '../Select';
@@ -85,7 +85,7 @@ export function GameForm({game, teamOptions}: GameFormProps) {
               <Select
                 label="Select week"
                 name="week"
-                options={weekOptions2021}
+                options={weekOptions2024}
                 initialValue={game?.week || defaultWeek}
               />
             </div>
