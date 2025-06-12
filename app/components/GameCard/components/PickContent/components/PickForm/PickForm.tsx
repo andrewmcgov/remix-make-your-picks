@@ -1,4 +1,4 @@
-import {Form, useNavigation} from '@remix-run/react';
+import { Form, useNavigation } from 'react-router';
 import {IndexGame} from '~/utilities/types';
 
 export interface PickFormProps {

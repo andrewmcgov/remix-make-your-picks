@@ -1,4 +1,4 @@
-import {ActionFunction, redirect} from '@remix-run/node';
+import { ActionFunction, redirect } from 'react-router';
 import {db} from '~/utilities/db.server';
 import {hasGameStarted} from '~/utilities/games';
 import {Errors} from '~/utilities/types';

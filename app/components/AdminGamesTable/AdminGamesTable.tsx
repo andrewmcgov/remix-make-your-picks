@@ -1,5 +1,5 @@
 import {format} from 'date-fns';
-import {Link} from '@remix-run/react';
+import { Link } from 'react-router';
 import {AdminGame} from '~/utilities/types';
 
 export interface AdminGamesTableProps {

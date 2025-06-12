@@ -1,10 +1,5 @@
-import {useLoaderData, Link} from '@remix-run/react';
-import {
-  redirect,
-  LoaderFunction,
-  MetaFunction,
-  ActionFunction,
-} from '@remix-run/node';
+import { useLoaderData, Link } from 'react-router';
+import { redirect, LoaderFunction, MetaFunction, ActionFunction } from 'react-router';
 import {
   SafeUser,
   AdminGame as AdminGameType,
