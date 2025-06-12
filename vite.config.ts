@@ -41,7 +41,7 @@ export default defineConfig({
   
   // SSR configuration
   ssr: {
-    noExternal: ["react-confetti", "react-icons"],
+    noExternal: ["react-icons"],
   },
   
   // Vite configuration for better performance

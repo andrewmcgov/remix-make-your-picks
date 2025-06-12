@@ -14,7 +14,6 @@ import {hasGameStarted} from '~/utilities/games';
 import {gameFilters} from '~/utilities/games.server';
 import {TieBreakerCard} from '~/components/TieBreakerCard';
 import {createOrUpdateTiebreaker} from '~/utilities/tiebreaker.server';
-import {Confetti} from '~/components/Confetti';
 
 export const meta: MetaFunction = () => {
   return [
@@ -171,7 +170,6 @@ export default function Index() {
           </p>
         </div>
       )}
-      {hasSuperBowlEnded ? <Confetti homeWins={homeWinsSuperBowl} /> : null}
     </Layout>
   );
 }
