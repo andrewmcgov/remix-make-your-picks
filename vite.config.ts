@@ -26,9 +26,40 @@ export default defineConfig({
     },
   },
   
+  // Optimize deps and exclude Node.js specific packages
+  optimizeDeps: {
+    exclude: [
+      "@mapbox/node-pre-gyp",
+      "mock-aws-s3", 
+      "aws-sdk",
+      "nock"
+    ],
+  },
+  
   // Vite configuration for better performance
   build: {
     target: "esnext",
+    rollupOptions: {
+      external: [
+        // Node.js built-ins that shouldn't be bundled
+        "fs",
+        "path", 
+        "crypto",
+        "os",
+        "util",
+        // Native/binary dependencies
+        "@mapbox/node-pre-gyp",
+        "mock-aws-s3",
+        "aws-sdk", 
+        "nock",
+        "bcrypt"
+      ],
+    },
+  },
+  
+  // Define for client bundle
+  define: {
+    global: "globalThis",
   },
   
   // Server configuration for development
