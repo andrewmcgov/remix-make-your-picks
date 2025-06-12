@@ -13,7 +13,7 @@ import {GameFilter} from '~/components/GameFilter';
 import {hasGameStarted} from '~/utilities/games';
 import {gameFilters} from '~/utilities/games.server';
 import {TieBreakerCard} from '~/components/TieBreakerCard';
-import {createOrUpdateTiebreaker} from './tiebreaker.server';
+import {createOrUpdateTiebreaker} from '~/utilities/tiebreaker.server';
 import {Confetti} from '~/components/Confetti';
 
 export const meta: MetaFunction = () => {

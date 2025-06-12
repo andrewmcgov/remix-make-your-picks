@@ -6,11 +6,15 @@ node_modules
 .env
 /prisma/local.db
 
-node_modules
-
 .cache
 .vercel
 .output
 
+# Remix Classic build outputs
 public/build
-api
+
+# Vite build outputs
+build/
+
+# Vercel API directory (kept for deployment)
+api/

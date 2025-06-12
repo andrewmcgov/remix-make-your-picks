@@ -21,12 +21,14 @@ This is a Remix.js application for NFL playoff predictions called "Make Your Pic
 - `npm run db:reset` - Reset database
 
 ### Build
-- `npm run build` - Build for production (outputs to `api/index.js` for Vercel)
+- `npm run build` - Build for production using Vite (outputs to `build/` directory)
+- `npm run start` - Start production server from build output
 
 ## Architecture
 
 ### Tech Stack
-- **Framework**: Remix.js v2 with React 18 and TypeScript
+- **Framework**: Remix.js v2 with Vite bundler, React 18 and TypeScript
+- **Bundler**: Vite (migrated from Classic Remix Compiler)
 - **Database**: MySQL with Prisma ORM
 - **Authentication**: Custom JWT + bcrypt implementation
 - **Deployment**: Vercel serverless functions
@@ -54,8 +56,12 @@ Leaderboard tracks points by playoff round (wildcard, division, conference, supe
 
 ## Development Notes
 
-- TypeScript path mapping: `~/*` maps to `./app/*`
-- Server-side code must use `*.server.ts` files
-- Database changes require Prisma migrations
-- All routes follow Remix conventions for loaders/actions
-- Vercel deployment uses serverless functions with server build at `api/index.js`
+- **Vite Configuration**: Uses `vite.config.ts` with Remix Vite plugin
+- **TypeScript path mapping**: `~/*` maps to `./app/*` (configured in both tsconfig.json and vite.config.ts)
+- **Server-side code**: Must use `*.server.ts` files and be placed in `app/utilities/` (not `app/routes/`)
+- **CSS imports**: Use `?url` suffix for file URL imports (e.g., `import styles from './styles.css?url'`)
+- **Development server**: Runs on port 5173 with Vite HMR (Hot Module Replacement)
+- **Database changes**: Require Prisma migrations
+- **All routes**: Follow Remix conventions for loaders/actions
+- **Vercel deployment**: Uses `api/index.js` entry point that redirects to `build/server/index.js`
+- **Build output**: Client assets in `build/client/`, server bundle in `build/server/`

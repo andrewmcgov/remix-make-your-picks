@@ -1,6 +1,5 @@
 import {
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -12,9 +11,9 @@ import type {LinksFunction} from '@remix-run/node';
 
 import {Layout} from './components/Layout';
 
-import globalStylesUrl from '~/styles/global.css';
-import resetStylesUrl from '~/styles/reset.css';
-import teamsStylesUrl from '~/styles/teams.css';
+import globalStylesUrl from '~/styles/global.css?url';
+import resetStylesUrl from '~/styles/reset.css?url';
+import teamsStylesUrl from '~/styles/teams.css?url';
 
 // https://remix.run/api/app#links
 export const links: LinksFunction = () => {
@@ -93,7 +92,6 @@ function Document({
         {children}
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === 'development' && <LiveReload />}
       </body>
     </html>
   );
