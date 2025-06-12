@@ -8,6 +8,9 @@ export default defineConfig({
       // Transfer key settings from remix.config.js
       ignoredRouteFiles: [".*"],
       
+      // Server build configuration for Vercel compatibility
+      serverModuleFormat: "cjs",
+      
       // Future flags carried over from remix.config.js
       future: {
         v3_relativeSplatPath: true,
@@ -34,6 +37,11 @@ export default defineConfig({
       "aws-sdk",
       "nock"
     ],
+  },
+  
+  // SSR configuration
+  ssr: {
+    noExternal: ["react-confetti", "react-icons"],
   },
   
   // Vite configuration for better performance
