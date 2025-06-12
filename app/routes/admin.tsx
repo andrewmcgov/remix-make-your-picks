@@ -25,7 +25,7 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export let loader: LoaderFunction = async ({request}) => {
+export const loader: LoaderFunction = async ({request}) => {
   const user = await currentUser(request);
 
   if (!user || !isAdmin(user)) {

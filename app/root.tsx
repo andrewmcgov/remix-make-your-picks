@@ -6,7 +6,6 @@ import {
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
-  useCatch,
   useRouteError,
 } from '@remix-run/react';
 import type {LinksFunction} from '@remix-run/node';
@@ -18,7 +17,7 @@ import resetStylesUrl from '~/styles/reset.css';
 import teamsStylesUrl from '~/styles/teams.css';
 
 // https://remix.run/api/app#links
-export let links: LinksFunction = () => {
+export const links: LinksFunction = () => {
   return [
     {
       rel: 'stylesheet',

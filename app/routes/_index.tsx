@@ -34,7 +34,7 @@ interface IndexLoaderResponse {
   hasSuperBowlEnded?: boolean;
 }
 
-export let loader = async ({request}: LoaderFunctionArgs) => {
+export const loader = async ({request}: LoaderFunctionArgs) => {
   const user = await currentUser(request);
   const {week, season} = gameFilters(request);
 
