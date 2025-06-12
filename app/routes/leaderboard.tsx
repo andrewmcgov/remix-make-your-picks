@@ -9,13 +9,10 @@ import {currentUser} from '~/utilities/user.server';
 import {defaultSeason, seasonOptions} from '~/utilities/static-data';
 import {gameFilters} from '~/utilities/games.server';
 import {db} from '~/utilities/db.server';
-import {Confetti} from '~/components/Confetti';
 
 interface LoaderResponse {
   user: SafeUser | null;
   leaderboard: LeaderboardEntryWithUserAndTotal[];
-  showConfetti: boolean;
-  homeTeamWon: boolean;
 }
 
 export const meta: MetaFunction = () => {
@@ -31,33 +28,12 @@ export const loader: LoaderFunction = async ({request}) => {
   const {season} = gameFilters(request);
   const leaderboard = await getLeaderboard(season);
 
-  const superBowl = await db.game.findFirst({
-    where: {
-      week: 'SB',
-      season: defaultSeason,
-    },
-  });
-
-  const showConfetti =
-    superBowl &&
-    superBowl.homeScore !== null &&
-    superBowl &&
-    superBowl.awayScore !== null;
-
-  const homeTeamWon =
-    superBowl &&
-    superBowl.homeScore !== null &&
-    superBowl &&
-    superBowl.awayScore !== null &&
-    superBowl.homeScore > superBowl.awayScore;
-
-  return {user, leaderboard, showConfetti, homeTeamWon};
+  return {user, leaderboard};
 };
 
 export default function Leaderboard() {
   const submit = useSubmit();
-  const {user, leaderboard, showConfetti, homeTeamWon} =
-    useLoaderData<LoaderResponse>();
+  const {user, leaderboard} = useLoaderData<LoaderResponse>();
 
   function handleFormChange(event: React.ChangeEvent<HTMLFormElement>) {
     submit(event.currentTarget, {replace: true});
@@ -80,7 +56,6 @@ export default function Leaderboard() {
       <div className="card">
         <LeaderboardTable leaderboard={leaderboard} />
       </div>
-      {showConfetti && <Confetti homeWins={homeTeamWon} />}
     </Layout>
   );
 }
