@@ -19,6 +19,7 @@
     "@remix-run/node": "^2.16.8",
     "@remix-run/react": "^2.16.8",
     "@remix-run/serve": "^2.16.8",
+    "@vercel/remix": "^2.16.6",
     "bcrypt": "^5.0.1",
     "date-fns": "^2.27.0",
     "form-data": "^4.0.0",
@@ -46,6 +47,13 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "overrides": {
+    "@vercel/remix": {
+      "@remix-run/dev": "^2.16.8",
+      "@remix-run/node": "^2.16.8",
+      "@remix-run/server-runtime": "^2.16.8"
+    }
   },
   "sideEffects": false
 }
