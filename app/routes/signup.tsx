@@ -1,5 +1,5 @@
-import {useActionData, useNavigation, Form, Link} from '@remix-run/react';
-import {ActionFunction, MetaFunction} from '@remix-run/node';
+import { useActionData, useNavigation, Form, Link } from 'react-router';
+import { ActionFunction, MetaFunction } from 'react-router';
 import {signUp} from '~/utilities/user.server';
 import {TextField} from '~/components/TextField';
 import {Layout} from '~/components/Layout';

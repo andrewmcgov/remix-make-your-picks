@@ -1,9 +1,5 @@
-import {
-  MetaFunction,
-  ActionFunction,
-  LoaderFunctionArgs,
-} from '@remix-run/node';
-import {useLoaderData} from '@remix-run/react';
+import { MetaFunction, ActionFunction, LoaderFunctionArgs } from 'react-router';
+import { useLoaderData } from 'react-router';
 import {currentUser} from '~/utilities/user.server';
 import {Layout} from '~/components/Layout';
 import {SafeUser, IndexGame} from '~/utilities/types';

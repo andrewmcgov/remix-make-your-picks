@@ -1,5 +1,5 @@
-import {MetaFunction, LoaderFunction} from '@remix-run/node';
-import {useLoaderData, useSubmit, Form} from '@remix-run/react';
+import { MetaFunction, LoaderFunction } from 'react-router';
+import { useLoaderData, useSubmit, Form } from 'react-router';
 import {Layout} from '~/components/Layout';
 import {Select} from '~/components/Select';
 import {LeaderboardTable} from '~/components/LeaderboardTable';

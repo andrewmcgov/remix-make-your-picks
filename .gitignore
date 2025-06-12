@@ -16,5 +16,5 @@ public/build
 # Vite build outputs
 build/
 
-# Vercel API directory (kept for deployment)
-api/
+# React Router build/cache outputs
+.react-router/

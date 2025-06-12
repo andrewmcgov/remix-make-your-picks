@@ -6,8 +6,8 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
   useRouteError,
-} from '@remix-run/react';
-import type {LinksFunction} from '@remix-run/node';
+} from 'react-router';
+import type { LinksFunction } from 'react-router';
 
 import {Layout} from './components/Layout';
 
