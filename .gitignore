@@ -18,6 +18,3 @@ build/
 
 # React Router build/cache outputs
 .react-router/
-
-# Vercel API directory (kept for deployment)
-api/
