@@ -18,3 +18,7 @@ build/
 
 # React Router build/cache outputs
 .react-router/
+
+# pnpm
+.pnpm-debug.log*
+.pnpm-store/
