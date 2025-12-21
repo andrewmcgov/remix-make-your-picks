@@ -6,7 +6,7 @@ import {updateLeaderboardEntryForUser} from '../app/utilities/leaderboard.server
 
 const db = new PrismaClient();
 
-const SEASONS = ['2020', '2021', '2022', '2023'];
+const SEASONS = ['2020', '2021', '2022', '2023', '2024', '2025'];
 
 function shuffle(array: any[]) {
   array.sort(() => Math.random() - 0.5);

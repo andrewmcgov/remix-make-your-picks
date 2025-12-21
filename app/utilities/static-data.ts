@@ -1,5 +1,5 @@
-export const defaultWeek = 'SB';
-export const defaultSeason = '2024';
+export const defaultWeek = '17';
+export const defaultSeason = '2025';
 
 export const seasonOptions = [
   {value: '2020', label: '2020'},
@@ -7,6 +7,7 @@ export const seasonOptions = [
   {value: '2022', label: '2022'},
   {value: '2023', label: '2023'},
   {value: '2024', label: '2024'},
+  {value: '2025', label: '2025'},
 ];
 
 export const weekOptions2020 = [
@@ -47,6 +48,15 @@ export const weekOptions2023 = [
 ];
 
 export const weekOptions2024 = [
+  {value: '17', label: 'Week 17'},
+  {value: '18', label: 'Week 18'},
+  {value: 'WC', label: 'Wildcard Weekend'},
+  {value: 'DIV', label: 'Divisional Weekend'},
+  {value: 'CC', label: 'Championship Weekend'},
+  {value: 'SB', label: 'Super Bowl'},
+];
+
+export const weekOptions2025 = [
   {value: '17', label: 'Week 17'},
   {value: '18', label: 'Week 18'},
   {value: 'WC', label: 'Wildcard Weekend'},
