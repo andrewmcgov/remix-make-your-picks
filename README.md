@@ -5,19 +5,19 @@ An app for picking winners in the NFL playoffs.
 ## Development
 
 Install dependencies and generate the Prisma client:
-```npm install```
+```pnpm install```
 
 Start the dev server:
-```npm run dev```
+```pnpm dev```
 
 Create a new migration:
-```npm run prisma:migrate:dev```
+```pnpm prisma:migrate:dev```
 
 Deploy the migration
 
 Change the DATABASE_URL in the .env to the production database URL and run:
 
-```npm run prisma:migrate:prod```
+```pnpm prisma:migrate:prod```
 
 
 
