@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import { Link } from 'react-router';
+import {Link} from 'react-router';
 import {FiMenu, FiX} from 'react-icons/fi';
 import {SafeUser} from '~/utilities/types';
 import {isAdmin} from '~/utilities/user';
@@ -43,7 +43,7 @@ export function Layout({children, user}: LayoutProps) {
         </header>
         <main>{children}</main>
       </div>
-      <footer className="Footer">🧀🧀🧀🧀🧀🧀</footer>
+      <footer className="Footer">🧀</footer>
     </div>
   );
 }
