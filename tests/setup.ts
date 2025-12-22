@@ -1,5 +1,6 @@
 import {vi, beforeEach} from 'vitest';
 import {mockDb, resetMockDb} from './mocks/db';
+import '@testing-library/jest-dom';
 
 // Mock the db.server module to use our mock Prisma client
 vi.mock('~/utilities/db.server', () => ({

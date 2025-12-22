@@ -89,7 +89,7 @@ export async function logIn(request: Request) {
   if (!password) errors.password = 'Please provide a password';
 
   if (Object.keys(errors).length) {
-    return errors;
+    return {errors};
   }
 
   email = email.trim();
@@ -190,7 +190,7 @@ export async function requestReset(request: Request) {
   if (!email) errors.email = 'Please provide an email address';
 
   if (Object.keys(errors).length) {
-    return errors;
+    return {errors};
   }
 
   email = email.trim();
