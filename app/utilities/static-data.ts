@@ -1,4 +1,4 @@
-export const defaultWeek = '17';
+export const defaultWeek = 'WC';
 export const defaultSeason = '2025';
 
 export const seasonOptions = [
