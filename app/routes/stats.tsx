@@ -198,6 +198,7 @@ export default function Stats() {
             <table>
               <thead>
                 <tr>
+                  <th></th>
                   <SortableHeader field="username" label="Username" />
                   <SortableHeader
                     field="totalPlayoffGamesPicked"
@@ -222,8 +223,9 @@ export default function Stats() {
                 </tr>
               </thead>
               <tbody>
-                {sortedStats.map((stat) => (
+                {sortedStats.map((stat, index) => (
                   <tr key={stat.userId}>
+                    <td>{index + 1}</td>
                     <td>{stat.user.username}</td>
                     <td>{stat.totalPlayoffGamesPicked}</td>
                     <td>{stat.totalCorrectPicks}</td>
