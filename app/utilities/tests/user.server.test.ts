@@ -26,14 +26,14 @@ describe('logIn', () => {
     const request = createMockRequest({password: 'somepassword'});
     const result = await logIn(request);
 
-    expect(result).toEqual({email: 'Please provide an email address'});
+    expect(result).toEqual({errors: {email: 'Please provide an email address'}});
   });
 
   it('returns error when password is missing', async () => {
     const request = createMockRequest({email: 'test@test.com'});
     const result = await logIn(request);
 
-    expect(result).toEqual({password: 'Please provide a password'});
+    expect(result).toEqual({errors: {password: 'Please provide a password'}});
   });
 
   it('returns error when both email and password are missing', async () => {
@@ -41,8 +41,10 @@ describe('logIn', () => {
     const result = await logIn(request);
 
     expect(result).toEqual({
-      email: 'Please provide an email address',
-      password: 'Please provide a password',
+      errors: {
+        email: 'Please provide an email address',
+        password: 'Please provide a password',
+      },
     });
   });
 
@@ -475,7 +477,7 @@ describe('requestReset', () => {
     const request = createMockRequest({});
     const result = await requestReset(request);
 
-    expect(result).toEqual({email: 'Please provide an email address'});
+    expect(result).toEqual({errors: {email: 'Please provide an email address'}});
   });
 
   it('returns error when user is not found', async () => {
