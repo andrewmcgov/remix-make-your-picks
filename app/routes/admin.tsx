@@ -1,5 +1,5 @@
-import { LoaderFunction, redirect, MetaFunction } from 'react-router';
-import { useLoaderData, Link } from 'react-router';
+import {LoaderFunction, redirect, MetaFunction} from 'react-router';
+import {useLoaderData, Link} from 'react-router';
 import {SafeUser, AdminGame} from '~/utilities/types';
 import {currentUser} from '~/utilities/user.server';
 import {isAdmin} from '~/utilities/user';
@@ -102,9 +102,14 @@ export default function Admin() {
         </div>
       ) : null}
       <AdminGamesTable games={games} />
-      <Link to="/admin/leaderboard" className="button">
-        Update leaderboard
-      </Link>
+      <div className="admin-actions">
+        <Link to="/admin/leaderboard" className="button">
+          Update leaderboard
+        </Link>
+        <Link to="/admin/stats" className="button">
+          Recalculate stats
+        </Link>
+      </div>
     </Layout>
   );
 }

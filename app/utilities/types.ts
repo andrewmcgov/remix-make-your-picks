@@ -4,9 +4,17 @@ import {
   Team,
   Pick as GamePick,
   LeaderboardEntry,
+  UserStats,
 } from '@prisma/client';
 
 export type SafeUser = Pick<User, 'username' | 'email' | 'id' | 'isAdmin'>;
+
+export type UserStatsWithUser = UserStats & {
+  user: {
+    id: number;
+    username: string;
+  };
+};
 
 export type PickWithTeamAndUsername = GamePick & {
   team: Team;

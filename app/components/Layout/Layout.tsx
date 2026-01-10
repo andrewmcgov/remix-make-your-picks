@@ -31,6 +31,7 @@ export function Layout({children, user}: LayoutProps) {
           <nav className={mobileNavOpen ? 'mobile-nav--open' : ''}>
             <Link to="/">Home</Link>
             <Link to="/leaderboard">Leaderboard</Link>
+            <Link to="/stats">Stats</Link>
             <Link to={accountUrl}>{accountText}</Link>
             {admin && <Link to="/admin">Admin</Link>}
             <button
