@@ -6,10 +6,11 @@ import {UserStatsWithUser} from './types';
  * and leaderboard positions in finished seasons
  */
 export async function calculateUserStats(userId: number) {
-  // Get all picks for playoff games
+  // Get all picks for playoff games that are closed
   const playoffPicks = await db.pick.findMany({
     where: {
       userId,
+      closed: true,
       game: {
         isPlayoff: true,
       },
