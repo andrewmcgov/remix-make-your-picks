@@ -13,9 +13,9 @@
     "prisma:migrate:dev": "prisma migrate dev",
     "prisma:migrate:prod": "prisma migrate deploy",
     "prisma:generate": "prisma generate",
-    "db:seed": "ts-node scripts/seed.ts",
-    "db:seed-teams": "ts-node scripts/seed-teams.ts",
-    "db:reset": "ts-node scripts/reset.ts"
+    "db:seed": "tsx scripts/seed.ts",
+    "db:seed-teams": "tsx scripts/seed-teams.ts",
+    "db:reset": "tsx scripts/reset.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.13.0",
@@ -48,6 +48,7 @@
     "dotenv": "^16.0.3",
     "jsdom": "^23.2.0",
     "ts-node": "^10.9.1",
+    "tsx": "^4.7.0",
     "typescript": "^5.1.0",
     "vite": "^6.3.5",
     "vitest": "^4.0.16",
