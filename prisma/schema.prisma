@@ -21,6 +21,7 @@ model User {
   picks            Pick[]
   LeaderboardEntry LeaderboardEntry[]
   TieBreaker       TieBreaker[]
+  UserStats        UserStats?
 }
 
 model Team {
@@ -82,4 +83,16 @@ model TieBreaker {
   userId Int
   value  Int
   season String
+}
+
+model UserStats {
+  id                         Int      @id @default(autoincrement())
+  user                       User     @relation(fields: [userId], references: [id])
+  userId                     Int      @unique
+  totalPlayoffGamesPicked    Int      @default(0)
+  totalCorrectPicks          Int      @default(0)
+  correctPickPercentage      Float    @default(0.0)
+  bestLeaderboardPosition    Int?
+  averageLeaderboardPosition Float?
+  lastUpdated                DateTime @default(now()) @updatedAt
 }
