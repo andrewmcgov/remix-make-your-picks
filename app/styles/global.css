@@ -196,7 +196,8 @@ button.plain {
   font-family: var(--font-heading);
   font-size: 4rem;
   text-decoration: none;
-  text-shadow: var(--color-accent-secondary) 3px 3px,
+  text-shadow:
+    var(--color-accent-secondary) 3px 3px,
     var(--color-accent-primary) 6px 6px;
 }
 
@@ -225,7 +226,7 @@ button.plain {
 
   .Layout nav {
     position: absolute;
-    top: -350px;
+    top: -400px;
     left: 0;
     width: 100%;
     background: var(--color-background);
@@ -235,7 +236,7 @@ button.plain {
     flex-direction: column;
     align-items: center;
     padding: 1rem;
-    transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: all 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);
   }
 
   .Layout .mobile-nav-toggle span {
@@ -244,6 +245,7 @@ button.plain {
 
   .Layout nav.mobile-nav--open {
     top: 0;
+    opacity: 1;
   }
 
   .Layout nav a {
