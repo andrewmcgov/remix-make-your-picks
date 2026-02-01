@@ -5,16 +5,18 @@ interface GameControlsProps {
 }
 
 export function GameControls({onDirectionChange}: GameControlsProps) {
+  const handleClick = (direction: Direction) => (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onDirectionChange(direction);
+  };
+
   return (
     <div className="GameControls">
       <div className="GameControls__row">
         <button
           className="GameControls__button"
-          onTouchStart={(e) => {
-            e.preventDefault();
-            onDirectionChange('UP');
-          }}
-          onClick={() => onDirectionChange('UP')}
+          onPointerDown={handleClick('UP')}
           aria-label="Move up"
         >
           ↑
@@ -23,33 +25,21 @@ export function GameControls({onDirectionChange}: GameControlsProps) {
       <div className="GameControls__row">
         <button
           className="GameControls__button"
-          onTouchStart={(e) => {
-            e.preventDefault();
-            onDirectionChange('LEFT');
-          }}
-          onClick={() => onDirectionChange('LEFT')}
+          onPointerDown={handleClick('LEFT')}
           aria-label="Move left"
         >
           ←
         </button>
         <button
           className="GameControls__button"
-          onTouchStart={(e) => {
-            e.preventDefault();
-            onDirectionChange('DOWN');
-          }}
-          onClick={() => onDirectionChange('DOWN')}
+          onPointerDown={handleClick('DOWN')}
           aria-label="Move down"
         >
           ↓
         </button>
         <button
           className="GameControls__button"
-          onTouchStart={(e) => {
-            e.preventDefault();
-            onDirectionChange('RIGHT');
-          }}
-          onClick={() => onDirectionChange('RIGHT')}
+          onPointerDown={handleClick('RIGHT')}
           aria-label="Move right"
         >
           →

@@ -33,7 +33,7 @@ export function useSnakeGame(initialPaused: boolean = true) {
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
   const [isPaused, setIsPaused] = useState(initialPaused);
-  
+
   const directionQueueRef = useRef<Direction[]>([]);
   const gameLoopRef = useRef<number | null>(null);
 
@@ -83,7 +83,7 @@ export function useSnakeGame(initialPaused: boolean = true) {
         let currentDirection = direction;
         if (directionQueueRef.current.length > 0) {
           const nextDirection = directionQueueRef.current.shift()!;
-          
+
           // Prevent moving in opposite direction
           const opposites: Record<Direction, Direction> = {
             UP: 'DOWN',
@@ -91,7 +91,7 @@ export function useSnakeGame(initialPaused: boolean = true) {
             LEFT: 'RIGHT',
             RIGHT: 'LEFT',
           };
-          
+
           if (opposites[currentDirection] !== nextDirection) {
             currentDirection = nextDirection;
             setDirection(currentDirection);

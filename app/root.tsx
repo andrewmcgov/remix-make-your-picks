@@ -7,7 +7,7 @@ import {
   isRouteErrorResponse,
   useRouteError,
 } from 'react-router';
-import type { LinksFunction } from 'react-router';
+import type {LinksFunction} from 'react-router';
 
 import {Layout} from './components/Layout';
 import {EasterEgg} from './components/EasterEgg';

@@ -36,7 +36,7 @@ export function GameBoard({snake, food, gridSize}: GameBoardProps) {
       ctx.moveTo(i * CELL_SIZE, 0);
       ctx.lineTo(i * CELL_SIZE, gridSize * CELL_SIZE);
       ctx.stroke();
-      
+
       // Horizontal lines
       ctx.beginPath();
       ctx.moveTo(0, i * CELL_SIZE);
@@ -50,7 +50,7 @@ export function GameBoard({snake, food, gridSize}: GameBoardProps) {
       food.x * CELL_SIZE + 2,
       food.y * CELL_SIZE + 2,
       CELL_SIZE - 4,
-      CELL_SIZE - 4
+      CELL_SIZE - 4,
     );
 
     // Draw snake
@@ -62,7 +62,7 @@ export function GameBoard({snake, food, gridSize}: GameBoardProps) {
         segment.x * CELL_SIZE + padding,
         segment.y * CELL_SIZE + padding,
         CELL_SIZE - padding * 2,
-        CELL_SIZE - padding * 2
+        CELL_SIZE - padding * 2,
       );
     });
   }, [snake, food, gridSize]);
