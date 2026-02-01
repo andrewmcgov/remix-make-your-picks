@@ -1,0 +1,59 @@
+.EyesEmoji {
+  position: fixed;
+  font-size: 60px;
+  cursor: pointer;
+  z-index: 999;
+  user-select: none;
+  transition: transform 2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@media screen and (max-width: 500px) {
+  .EyesEmoji {
+    font-size: 50px;
+  }
+}
+
+.EyesEmoji:hover {
+  transform: scale(1.1);
+}
+
+.EyesEmoji:focus {
+  outline: 2px solid #00ff00;
+  outline-offset: 4px;
+}
+
+/* Left side animations */
+.EyesEmoji--left {
+  left: -80px;
+  transform: translateX(0); /* Start off-screen */
+}
+
+.EyesEmoji--left.EyesEmoji--sliding-in {
+  transform: translateX(100px);
+}
+
+.EyesEmoji--left.EyesEmoji--visible {
+  transform: translateX(100px);
+}
+
+.EyesEmoji--left.EyesEmoji--sliding-out {
+  transform: translateX(0);
+}
+
+/* Right side animations */
+.EyesEmoji--right {
+  right: -80px;
+  transform: translateX(0); /* Start off-screen */
+}
+
+.EyesEmoji--right.EyesEmoji--sliding-in {
+  transform: translateX(-100px);
+}
+
+.EyesEmoji--right.EyesEmoji--visible {
+  transform: translateX(-100px);
+}
+
+.EyesEmoji--right.EyesEmoji--sliding-out {
+  transform: translateX(0);
+}

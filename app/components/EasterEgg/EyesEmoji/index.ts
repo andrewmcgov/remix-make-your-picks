@@ -1,0 +1,1 @@
+export {EyesEmoji} from './EyesEmoji';
