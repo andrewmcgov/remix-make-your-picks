@@ -14,7 +14,7 @@ interface SnakeGameProps {
 export function SnakeGame({onClose}: SnakeGameProps) {
   const [countdown, setCountdown] = useState<number | null>(3);
   const [isGameStarted, setIsGameStarted] = useState(false);
-  
+
   const {
     snake,
     food,
@@ -27,7 +27,7 @@ export function SnakeGame({onClose}: SnakeGameProps) {
     togglePause,
     gridSize,
   } = useSnakeGame(true); // Start paused
-  
+
   const {highScore, updateHighScore} = useHighScore();
   const [isNewHighScore, setIsNewHighScore] = useState(false);
   const [showMobileControls, setShowMobileControls] = useState(false);
@@ -37,7 +37,7 @@ export function SnakeGame({onClose}: SnakeGameProps) {
     if (countdown === null) {
       return;
     }
-    
+
     if (countdown === 0) {
       setIsGameStarted(true);
       // Unpause the game when countdown finishes
@@ -59,11 +59,12 @@ export function SnakeGame({onClose}: SnakeGameProps) {
   // Detect if mobile controls should be shown
   useEffect(() => {
     const checkMobile = () => {
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isTouchDevice =
+        'ontouchstart' in window || navigator.maxTouchPoints > 0;
       const isSmallScreen = window.innerWidth < 768;
       setShowMobileControls(isTouchDevice || isSmallScreen);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
@@ -148,7 +149,7 @@ export function SnakeGame({onClose}: SnakeGameProps) {
         {/* Game board */}
         <div className="SnakeGame__board-wrapper">
           <GameBoard snake={snake} food={food} gridSize={gridSize} />
-          
+
           {/* Overlays (countdown and game over) */}
           <GameOverlay
             score={score}

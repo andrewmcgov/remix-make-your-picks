@@ -41,10 +41,16 @@ export function GameOverlay({
               <p className="GameOverlay__new-high">🎉 New High Score! 🎉</p>
             )}
             <div className="GameOverlay__buttons">
-              <button className="GameOverlay__button GameOverlay__button--primary" onClick={onRestart}>
+              <button
+                className="GameOverlay__button GameOverlay__button--primary"
+                onClick={onRestart}
+              >
                 Play Again
               </button>
-              <button className="GameOverlay__button GameOverlay__button--secondary" onClick={onClose}>
+              <button
+                className="GameOverlay__button GameOverlay__button--secondary"
+                onClick={onClose}
+              >
                 Close
               </button>
             </div>
