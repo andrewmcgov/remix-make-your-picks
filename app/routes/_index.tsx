@@ -150,7 +150,7 @@ export default function Index() {
 
   return (
     <Layout user={user}>
-      {hasSuperBowlEnded && <Confetti />}
+      {hasSuperBowlEnded && <Confetti colors={confettiColors} />}
       <GameFilter />
       {games.length > 0 ? (
         <div

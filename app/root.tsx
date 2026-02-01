@@ -10,10 +10,13 @@ import {
 import type { LinksFunction } from 'react-router';
 
 import {Layout} from './components/Layout';
+import {EasterEgg} from './components/EasterEgg';
 
 import globalStylesUrl from '~/styles/global.css?url';
 import resetStylesUrl from '~/styles/reset.css?url';
 import teamsStylesUrl from '~/styles/teams.css?url';
+import eyesEmojiStylesUrl from '~/components/EasterEgg/EyesEmoji/EyesEmoji.css?url';
+import snakeGameStylesUrl from '~/components/EasterEgg/SnakeGame/SnakeGame.css?url';
 
 // https://remix.run/api/app#links
 export const links: LinksFunction = () => {
@@ -24,6 +27,8 @@ export const links: LinksFunction = () => {
     },
     {rel: 'stylesheet', href: globalStylesUrl},
     {rel: 'stylesheet', href: teamsStylesUrl},
+    {rel: 'stylesheet', href: eyesEmojiStylesUrl},
+    {rel: 'stylesheet', href: snakeGameStylesUrl},
   ];
 };
 
@@ -90,6 +95,7 @@ function Document({
       </head>
       <body>
         {children}
+        <EasterEgg />
         <ScrollRestoration />
         <Scripts />
       </body>
