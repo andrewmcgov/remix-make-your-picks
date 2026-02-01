@@ -1,5 +1,5 @@
-import { MetaFunction, ActionFunction, LoaderFunctionArgs } from 'react-router';
-import { useLoaderData } from 'react-router';
+import {MetaFunction, ActionFunction, LoaderFunctionArgs} from 'react-router';
+import {useLoaderData} from 'react-router';
 import {currentUser} from '~/utilities/user.server';
 import {Layout} from '~/components/Layout';
 import {SafeUser, IndexGame} from '~/utilities/types';
@@ -10,6 +10,7 @@ import {hasGameStarted} from '~/utilities/games';
 import {gameFilters} from '~/utilities/games.server';
 import {TieBreakerCard} from '~/components/TieBreakerCard';
 import {createOrUpdateTiebreaker} from '~/utilities/tiebreaker.server';
+import {Confetti} from '~/components/Confetti';
 
 export const meta: MetaFunction = () => {
   return [
@@ -142,8 +143,14 @@ export default function Index() {
     homeWinsSuperBowl,
   } = useLoaderData<typeof loader>();
 
+  // Determine confetti colors based on Super Bowl winner
+  const confettiColors = homeWinsSuperBowl
+    ? ['#002244', '#ffffff', '#c60c30'] // New England Patriots colors
+    : ['#002244', '#ffffff', '#69be28']; // Seattle Seahawks colors
+
   return (
     <Layout user={user}>
+      {hasSuperBowlEnded && <Confetti />}
       <GameFilter />
       {games.length > 0 ? (
         <div
